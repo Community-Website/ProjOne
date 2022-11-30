@@ -295,6 +295,12 @@ $(function(){
 		$("#uEmail").val(uEmail_01+"@"+uEmail_02);
 		let uBirthday = $("#uBirthday").val().trim();
 		
+		let hobby="";
+		$('input[name=uHobby]:checked').each(function(){
+        hobby += $(this).next().text()+" ";
+	      });
+	    $("input[name=uHobby]").val(hobby);
+		
 		if (uId == "") {
 			alert("아이디를 입력해주세요.");
 			$("#uId").focus();
@@ -359,6 +365,12 @@ $(function(){
     let uEmail_02 = $("#uEmail_02").val().trim();
     $("#uEmail").val(uEmail_01+"@"+uEmail_02);
     let uBirthday = $("#uBirthday").val().trim();
+    
+    let hobby="";
+		$('input[name=uHobby]:checked').each(function(){
+        hobby += $(this).next().text()+" ";
+	      });
+	    $("input[name=uHobby]").val(hobby);
     
     if (uId == "") {
       alert("아이디를 입력해주세요.");
