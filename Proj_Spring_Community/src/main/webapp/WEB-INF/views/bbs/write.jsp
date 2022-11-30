@@ -4,7 +4,6 @@
 
 <%
 	String uId = (String)session.getAttribute("uId_Session"); 
-	//String uName = mMgr.getMemberName(uId);
 %>
 
 <!DOCTYPE html>
@@ -47,8 +46,8 @@
 							<tr>
 								<td class="req">성명</td>  <!-- td.req 필수입력 -->
 								<td>
-									<input type="text" name="uName" id="uName">
-									<input type="hidden" name="uName" id="uName" >
+									<input type="text" name="uName" id="${uName}">
+									<input type="hidden" name="uName" id="${uName}" >
 									<input type="hidden" name="uId" value="${uId}">
 								</td>
 							</tr>

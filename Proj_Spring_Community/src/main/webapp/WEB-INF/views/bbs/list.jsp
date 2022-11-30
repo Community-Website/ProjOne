@@ -3,9 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%
-	String uId_Session = (String)session.getAttribute("uId_Session"); 
-%> 
+<c:set var="uId_Session" value="${sessionScope.uId_Session }"/>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -87,14 +86,17 @@
 						<c:if test="${empty uId_Session}">
 							<button type="button" id="loginAlertBtn" class="listBtnStyle">글쓰기</button>			
 						</c:if>
-						<c:if test="${!empty uId_Session}"></c:if>
-							<button type="button" id="writeBtn" class="listBtnStyle">글쓰기</button>
+						<c:if test="${!empty uId_Session}">
+							
+								<button type="button" id="writeBtn" class="listBtnStyle">글쓰기</button>
+								<input type="hidden" id="uId" value="${uId_Session}" >
+							
+						</c:if>
 						</td>
 						
 						<td colspan="3">
 						
-							<form name="searchFrm" class="dFlex"
-									id="searchFrm">						
+							<form name="searchFrm" class="dFlex" id="searchFrm">						
 								<div>
 									<select name="keyField" id="keyField">
 										<option value="subject" 

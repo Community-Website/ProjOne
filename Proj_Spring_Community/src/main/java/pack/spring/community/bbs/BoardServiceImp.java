@@ -32,9 +32,4 @@ public class BoardServiceImp implements BoardService{
 		return this.boardDao.boardList(map);
 	}
 	
-	@Override
-	public int getTotalRecord(SearchVO searchVo) {
-		return this.boardDao.getTotalRecord(searchVo);
-	}
-	
 }

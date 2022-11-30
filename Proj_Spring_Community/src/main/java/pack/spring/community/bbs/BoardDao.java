@@ -23,9 +23,5 @@ public class BoardDao {
 	public List<Map<String, Object>> boardList(Map<String, Object> map){
 		return this.sqlSessionTemplate.selectList("bbs.selectAll", map);
 	}
-	
-	public int getTotalRecord(SearchVO searchVo) {
-		return sqlSessionTemplate.selectOne("bbs.getTotalRecord", searchVo);
-	}
-	
+
 }

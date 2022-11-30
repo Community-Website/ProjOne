@@ -8,8 +8,9 @@ $(function(){
 	$("#loginAlertBtn").click(function(){		
 		alert("로그인 후 게시글을 작성하실 수 있습니다.");
 	});	
-	$("#writeBtn").click(function(){		
-		location.href="/bbs/write.jsp";
+	$("#writeBtn").click(function(){	
+		let uId=$("#uId").val().trim();	
+		location.href="/bbs/write?uId=" + uId;
 	});
 	/* 리스트 페이지 글쓰기 버튼 끝 /bbs/list.jsp */
 	

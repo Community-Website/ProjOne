@@ -11,7 +11,4 @@ public interface BoardService {
 	
 	// 글 목록 Service
 	List<Map<String, Object>> list(Map<String, Object> map);
-	
-	// 전체 글 수
-	int getTotalRecord(SearchVO searchVo);
 }
