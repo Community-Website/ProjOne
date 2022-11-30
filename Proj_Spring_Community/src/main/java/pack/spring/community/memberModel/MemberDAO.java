@@ -35,19 +35,6 @@ public class MemberDAO {
 	
 	/* 회원가입 시작 (/member/memberProc.jsp) */
 	public int insertMember(Map<String, Object> map) {
-		String value = (String) map.get("uHobby");
-		System.out.println();
-		String[] hobby = value.split(" ");
-		String[] hobbyName = {"인터넷", "여행", "게임", "영화", "운동"};
-		char[] hobbyCode = {'0', '0', '0', '0', '0'};
-		for (int i=0; i<hobby.length; i++) {
-			for(int j=0; j<hobbyName.length; j++) {
-				if (hobby[i].equals(hobbyName[j])) {
-					hobbyCode[j] = '1';
-				}
-			}
-		}
-		map.put("uHobby", new String(hobbyCode));
 		return this.sqlSessionTemplate.insert("member.insert", map);
 	}
 	/* 회원가입 끝 (/member/memberProc.jsp) */
@@ -55,7 +42,6 @@ public class MemberDAO {
 	
 	/* 로그인 처리 시작 (/member/loginProc.jsp) */
 	public int loginMember(Map<String, Object> map) {
-		
 		return this.sqlSessionTemplate.selectOne("member.loginMember", map);
 	}
 	/* 로그인 처리 끝 (/member/loginProc.jsp) */
@@ -70,19 +56,6 @@ public class MemberDAO {
 	
 	/* 회원정보 수정 시작 (/member/memberModProc.jsp) */
 	public int updateMember(Map<String, Object> map) {
-		String value = (String) map.get("uHobby");
-		System.out.println();
-		String[] hobby = value.split(" ");
-		String[] hobbyName = {"인터넷", "여행", "게임", "영화", "운동"};
-		char[] hobbyCode = {'0', '0', '0', '0', '0'};
-		for (int i=0; i<hobby.length; i++) {
-			for(int j=0; j<hobbyName.length; j++) {
-				if (hobby[i].equals(hobbyName[j])) {
-					hobbyCode[j] = '1';
-				}
-			}
-		}
-		map.put("uHobby", new String(hobbyCode));
 		return this.sqlSessionTemplate.update("member.updateMember", map);
 	}
 	/* 회원정보 수정 끝 (/member/memberModProc.jsp) */

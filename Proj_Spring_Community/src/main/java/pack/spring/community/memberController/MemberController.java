@@ -123,6 +123,18 @@ public class MemberController {
 	// 회원가입 post
 	@RequestMapping(value = "/member/create", method = RequestMethod.POST)
 	public ModelAndView createPost(@RequestParam Map<String, Object> map) {
+		String value = (String) map.get("uHobby");
+		String[] hobby = value.split(" ");
+		String[] hobbyName = {"인터넷", "여행", "게임", "영화", "운동"};
+		char[] hobbyCode = {'0', '0', '0', '0', '0'};
+		for (int i=0; i<hobby.length; i++) {
+			for(int j=0; j<hobbyName.length; j++) {
+				if (hobby[i].equals(hobbyName[j])) {
+					hobbyCode[j] = '1';
+				}
+			}
+		}
+		map.put("uHobby", new String(hobbyCode));
 		ModelAndView mav = new ModelAndView();
 		boolean joinRes = this.memberService.insertMember(map);
 
@@ -171,9 +183,21 @@ public class MemberController {
 	// 회원정보수정 post
 	@RequestMapping(value = "/member/memberMod", method = RequestMethod.POST)
 	public ModelAndView memberModPost(@RequestParam Map<String, Object> map) {
+		String value = (String) map.get("uHobby");
+		String[] hobby = value.split(" ");
+		String[] hobbyName = {"인터넷", "여행", "게임", "영화", "운동"};
+		char[] hobbyCode = {'0', '0', '0', '0', '0'};
+		for (int i=0; i<hobby.length; i++) {
+			for(int j=0; j<hobbyName.length; j++) {
+				if (hobby[i].equals(hobbyName[j])) {
+					hobbyCode[j] = '1';
+				}
+			}
+		}
+		map.put("uHobby", new String(hobbyCode));
 		ModelAndView mav = new ModelAndView();
 		boolean editRes = this.memberService.updateMember(map);
-
+		System.out.println("회원정보 수정 editRes="+editRes);
 		mav.addObject("editRes", editRes);
 		mav.setViewName("redirect:/member/memberModProc");
 

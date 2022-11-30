@@ -139,27 +139,27 @@ JavaScript파일을 기존 회원가입소스를 활용할 것인지 새롭게 �
 							<tr>
 								<td>취미</td>
 								<td>
-									<label> 인터넷 <input type="checkbox" name="uHobby" value="인터넷" 
+									<label> 인터넷 <input type="checkbox" name="uHobby" value="인터넷 " 
 										<c:if test="${fn:substring(mBean.uHobby,0,1) eq'1'}">
 										    checked="checked"
 										</c:if>
 									></label> 
-									<label> 여행 <input type="checkbox" name="uHobby"value="여행" 
+									<label> 여행 <input type="checkbox" name="uHobby" value="여행 " 
 										<c:if test="${fn:substring(mBean.uHobby,1,2) eq '1'}">
 										    checked="checked"
 										</c:if>
 									></label> 
-									<label> 게임 <input type="checkbox" name="uHobby"value="게임"
+									<label> 게임 <input type="checkbox" name="uHobby" value="게임 "
 										<c:if test="${fn:substring(mBean.uHobby,2,3) eq '1'}">
 										    checked="checked"
 										</c:if>
 									></label> 
-									<label> 영화 <input type="checkbox" name="uHobby"value="영화"
+									<label> 영화 <input type="checkbox" name="uHobby" value="영화 "
 										<c:if test="${fn:substring(mBean.uHobby,3,4) eq '1'}">
 										    checked="checked"
 										</c:if>
 									></label> 
-									<label> 운동 <input type="checkbox" name="uHobby"value="운동"
+									<label> 운동 <input type="checkbox" name="uHobby" value="운동"
 										<c:if test="${fn:substring(mBean.uHobby,4,5) eq '1'}">
 										    checked="checked"
 										</c:if>
