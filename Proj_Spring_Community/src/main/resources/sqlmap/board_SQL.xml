@@ -17,14 +17,32 @@
 	<!-- 글 목록 -->
 	<select id="selectAll" parameterType="hashMap" resultType="hashMap">
 		<![CDATA[
-			select * from tblBoard order by num desc
+			select * from tblBoard 
 		]]>
-	</select>
-<!-- 	
-	<select id="getTotalRecord" parameterType="hashMap" resultType="int">
+			<if test='keyWord != null and keyWord != "" '>
+				where ${keyField } like '%${keyWord}%'
+ 			</if>
 		<![CDATA[
-			select count(*) from tblBoard
+				order by num desc
 		]]>
+ 		 
 	</select>
- -->
+ 	
+ 	<!-- 총 게시물 수 -->
+ 	<!-- 
+	<select id="getTotalCount" parameterType="hashMap" resultType="int">
+		<![CDATA[
+			<choose>
+				<when test="keyWord != null ">
+					select count(*) from tblBoard
+				</when>
+				<otherwise>
+					select count(*) from tblBoard
+					where #{keyField } like '%#{keyWord}%'
+				</otherwise>
+			</choose>
+		]]>		
+	</select> 
+	-->
+
 </mapper>
