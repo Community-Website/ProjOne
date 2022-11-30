@@ -9,7 +9,7 @@ $(function(){
 		alert("로그인 후 게시글을 작성하실 수 있습니다.");
 	});	
 	$("#writeBtn").click(function(){		
-		location.href="/bbs/write.jsp";
+		location.href="/bbs/write";
 	});
 	/* 리스트 페이지 글쓰기 버튼 끝 /bbs/list.jsp */
 	
@@ -22,7 +22,7 @@ $(function(){
 			alert("제목은 필수입력입니다.");
 			$("#subject").focus();
 		} else {
-			$("#writeFrm").attr("action", "/bbs/writeProc.jsp");
+			$("#writeFrm").attr("action", "/bbs/write");
 			$("#writeFrm").submit();
 		}
 	
