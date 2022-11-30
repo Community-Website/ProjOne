@@ -23,8 +23,9 @@
 	
 	<!-- 전체 글 수 -->
 	<select id="getTotalRecord" parameterType="searchVo" resultType="int">	
-		select count(*) from tblBoard
-		<include refid="searchWhere"></include>
+		<![CDATA[
+			select count(*) from tblBoard
+		]]>
 	</select>
 
 </mapper>

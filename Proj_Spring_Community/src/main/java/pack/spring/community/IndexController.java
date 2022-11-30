@@ -14,6 +14,6 @@ public class IndexController {
 			mav.setViewName("/index");
 			return mav;
 		}
-		// 인덱스 페이지 끝
+	// 인덱스 페이지 끝
 
 }

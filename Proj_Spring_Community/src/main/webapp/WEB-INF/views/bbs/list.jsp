@@ -46,8 +46,7 @@
     		</c:if>	
 	    		<div id="pageInfo" class="dFlex">
 					<span>prnType :  ${pagingInfo.totalRecord} 개</span>
-					<span>페이지 : ${pagingInfo.currentpage}  / ${paging.totalPage}</span>  
-				
+					<span>페이지 : ${pagingInfo.currentpage}  / ${paging.totalPage}</span>  			
 				</div>						
 			<table id="boardList">
 				<thead>
@@ -85,31 +84,39 @@
 			</c:if>	
 					<tr id="listBtnArea">
 						<td colspan="2">
-						<% if (uId_Session == null) { %>
-							<button type="button" id="loginAlertBtn" class="listBtnStyle">글쓰기</button>
-						<% } else { %>
+						<c:if test="${empty uId_Session}">
+							<button type="button" id="loginAlertBtn" class="listBtnStyle">글쓰기</button>			
+						</c:if>
+						<c:if test="${!empty uId_Session}"></c:if>
 							<button type="button" id="writeBtn" class="listBtnStyle">글쓰기</button>
-						<% } %>
 						</td>
 						
 						<td colspan="3">
 						
 							<form name="searchFrm" class="dFlex"
-									id="searchFrm">
-							
+									id="searchFrm">						
 								<div>
 									<select name="keyField" id="keyField">
 										<option value="subject" 
-												<% if(keyField.equals("subject")) out.print("selected"); %>>제  목</option>
+											<c:if test="${param.keyField=='subject'}">
+												selected = "selected"
+											</c:if>
+										>제  목</option>
 										<option value="uName" 
-												<% if(keyField.equals("uName")) out.print("selected"); %>>이  름</option>
+											<c:if test="${param.keyField=='uName'}">
+												selected = "selected"
+											</c:if>	
+										>이  름</option>
 										<option value="content" 
-												<% if(keyField.equals("content")) out.print("selected"); %>>내  용</option>
+											<c:if test="${param.keyField=='content'}">
+												selected = "selected"
+											</c:if>	
+										>내  용</option>
 									</select>
 								</div>
 								<div>
 									<input type="text" name="keyWord" id="keyWord"
-									  id="keyWord" size="20" maxlength="30" value="<%=keyWord%>">
+									  id="keyWord" size="20" maxlength="30" value="${param.keyWord}">
 								</div>
 								<div>
 									<button type="button" id="searchBtn" class="listBtnStyle">검색</button>
@@ -118,8 +125,8 @@
 							</form>
 							
 							<!-- 검색결과 유지용 매개변수 데이터시작 -->
-							<input type="hidden" id="pKeyField" value="<%=keyField%>">
-							<input type="hidden" id="pKeyWord" value="<%=keyWord%>">
+							<input type="hidden" id="pKeyField" value="${param.keyField}">
+							<input type="hidden" id="pKeyWord" value="${param.KeyWord}">
 							<!-- 검색결과 유지용 매개변수 데이터끝 -->
 						
 						</td>
@@ -129,79 +136,7 @@
 						
 					<!-- 페이징(= 페이지 나누기) 시작 -->
 						<td colspan="5" id="pagingTd">
-				<%
-				int pageStart = (nowBlock - 1 ) * pagePerBlock + 1;
-							// 26개 자료기준
-							// 현재 기준 numPerPage : 5;    // 페이지당 출력 데이터 수
-							//            pagePerBlock : 5;  //  블럭당 페이지 수
-							//            nowBlock : 현재블럭
-							//            totalBlock : 전체블럭
-							//  -------------------------------------------------
-							//            totalRecord : 26    totalPage : 6
-							// 적용결과  nowBlock : 1  =>   pageStart : 1   pageEnd : 5
-							//            nowBlock : 2  =>   pageStart : 6   pageEnd : 6( = totalPage)
-							//
-				int pageEnd = (nowBlock < totalBlock) ? pageStart + pagePerBlock - 1 :  totalPage;
-				//  마지막 블럭이 아니면 pageEnd 값은 pageStart + pagePerBlock - 1 의 값
-				//  여기서 pageEnd는 해당 블럭의 마지막 페이지를 의미
-				//   즉, 1블럭에서는  pageStart 1  pagePerBlock 10  이므로  pageEnd  는 10
-				//   2블럭에서는  pageStart 11  pagePerBlock 10  이므로  pageEnd  는 20
-			    //   마지막 블럭(5)에서는 pageStart 41  pagePerBlock 10 을 따지지 않고 totalPage 41이 pageEnd 에 적용됨
-			    //   ----------------------------------------------------
-				// 3항 연산자(= 조건 연산자) =>    (조건식) ?  true 일 때 결과(A)  :  false 일 때 결과(B);
-				// 블럭당 5페이지 출력 =>        pageStart    pageEnd
-				//                          1블럭        1                 5
-				//                          2블럭        6                 10    		
-				// 블럭마다 시작되는 첫 페이지와 마지막 페이지 관련 작업				
-				if (totalPage != 0) {   //   전체 페이지가 0이 아니라면 = 게시글이 1개라도 있다면
-					// #if01_totalPage   
-				%>
 					
-					<% if (nowBlock>1) { 	   // 페이지 블럭이 2이상이면 => 2개이상의 블럭이 있어야 가능 %>
-								<span class="moveBlockArea" onclick="moveBlock('<%=nowBlock-1%>', '<%=pagePerBlock%>', 'pb')">
-								&lt;
-								</span>
-					<% } else { %>
-					            <span class="moveBlockArea" ></span>
-					<% } %>
-				
-					<!-- 페이지 나누기용 페이지 번호 출력 시작  -->
-					<% 
-										             // 2        <     6                     
-					             // for (초기식;  조건식;  증감식) {    }
-					             // for (     ;  조건식;  증감식) {    }   => 초기식은 조건식의 변수가
-					             //      for구문 사용이전에 명시되어 있으므로 그 변수를 활용한다.
-						for (int i=pageStart   ; i<=pageEnd; i++) { %>
-						
-							<% if (i == nowPage) {   // 현재 사용자가 보고 있는 페이지 %>
-								<span class="nowPageNum"><%=i %></span>
-							<% } else {                              // 현재 사용자가 보고 있지 않은 페이지 %>
-							 	<span class="pageNum" onclick="movePage('<%=i %>')">
-									<%=i %>
-							 	</span>					
-							<% } // End If%>
-									 	
-					<% }  // End For%>
-					<!-- 페이지 나누기용 페이지 번호 출력 끝  -->	
-					
-				
-				<% if (totalBlock>nowBlock) { // 다음 블럭이 남아 있다면  %>
-							<span  class="moveBlockArea" onclick="moveBlock('<%=nowBlock+1%>', '<%=pagePerBlock%>', 'nb')">
-							&gt;
-							</span>
-			
-				<% } else { %>
-				            <span class="moveBlockArea"></span>
-				<% } %>
-				
-					
-					
-				<%
-				} else {
-					out.print("<b>[ Paging Area ]</b>"); // End if
-				}
-				%>						
-										
 						</td>
 					</tr>
 					
