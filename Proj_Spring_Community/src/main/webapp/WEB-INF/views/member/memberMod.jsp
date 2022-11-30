@@ -32,7 +32,7 @@ JavaScript파일을 기존 회원가입소스를 활용할 것인지 새롭게 �
 	<div id="wrap">
 
 		<!--  헤더템플릿 시작 -->
-		<%@ include file="/resources/ind/headerTmp.jsp"%>
+		<%@ include file="../ind/headerTmp.jsp"%>
 		<!--  헤더템플릿 끝 -->
 
 
@@ -218,7 +218,7 @@ JavaScript파일을 기존 회원가입소스를 활용할 것인지 새롭게 �
 
 
 		<!--  푸터템플릿 시작 -->
-		<%@ include file="/resources/ind/footerTmp.jsp"%>
+		<%@ include file="../ind/footerTmp.jsp"%>
 		<!--  푸터템플릿 끝 -->
 
 	</div>

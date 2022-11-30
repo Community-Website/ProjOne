@@ -23,7 +23,7 @@ String uId_Session = (String)session.getAttribute("uId_Session");
     <div id="wrap">
     	
     	<!--  헤더템플릿 시작 -->
-		<%@ include file="/resources/ind/headerTmp.jsp" %>
+		<%@ include file="../ind/headerTmp.jsp" %>
     	<!--  헤더템플릿 끝 -->    	
     	
     	
@@ -47,7 +47,7 @@ String uId_Session = (String)session.getAttribute("uId_Session");
     
         	   	
     	<!--  푸터템플릿 시작 -->
-		<%@ include file="/resources/ind/footerTmp.jsp" %>
+		<%@ include file="../ind/footerTmp.jsp" %>
     	<!--  푸터템플릿 끝 -->  
         
     </div>

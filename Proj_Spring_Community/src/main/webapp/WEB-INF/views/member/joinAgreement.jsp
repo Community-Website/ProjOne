@@ -19,7 +19,7 @@
     <div id="wrap">
     	
     	<!--  헤더템플릿 시작 -->
-		<%@ include file="/resources/ind/headerTmp.jsp" %>
+		<%@ include file="../ind/headerTmp.jsp" %>
     	<!--  헤더템플릿 끝 -->    	
     	
 	    	<main id="main" class="dFlex">
@@ -39,7 +39,7 @@
 		    			<div class="termArea">
 			    			<h3>[필수] 이용약관 동의</h3>
 			    			<!--  iframe, textarea, div 중 선택하여 제작한다. -->
-			    			<iframe src="/resources/ind/usingAgree.jsp" class="usingAgree"></iframe>
+			    			<iframe src="../ind/usingAgree.jsp" class="usingAgree"></iframe>
 			    			<label>
 				    			이용약관에 동의하십니까?
 				    			<input type="checkbox" class="usingAgreeChk chkRequired"
@@ -49,7 +49,7 @@
 		    			    			    			    		
 		    			<div class="termArea">	    			
 			    			<h3>[필수] 개인정보 수집 및 이용 동의</h3>
-			    			<iframe src="/resources/ind/personalInfoAgree.jsp" class="usingAgree"></iframe>
+			    			<iframe src="../ind/personalInfoAgree.jsp" class="usingAgree"></iframe>
 			    			<label>
 				    			개인정보 수집 및 이용에 동의하십니까?
 				    			<input type="checkbox" class="usingAgreeChk chkRequired"
@@ -59,7 +59,7 @@
 		    			    		
 		    			<div class="termArea">    			
 			    			<h3>[선택] 쇼핑정보 수신 동의</h3>
-			    			<iframe src="/resources/ind/shopInfoAgree.jsp" class="usingAgree"></iframe>
+			    			<iframe src="../ind/shopInfoAgree.jsp" class="usingAgree"></iframe>
 			    			<label>
 				    			쇼핑정보 수신에 동의하십니까?
 				    			<input type="checkbox" class="usingAgreeChk"
@@ -86,7 +86,7 @@
     
         	   	
     	<!--  푸터템플릿 시작 -->
-		<%@ include file="/resources/ind/footerTmp.jsp" %>
+		<%@ include file="../ind/footerTmp.jsp" %>
     	<!--  푸터템플릿 끝 -->  
         
     </div>
