@@ -31,5 +31,30 @@ public class BoardServiceImp implements BoardService{
 	public List<Map<String, Object>> list(Map<String, Object> map) {
 		return this.boardDao.boardList(map);
 	}
+
+	@Override
+	public int getMaxNum(Map<String, Object> map) {
+		return this.boardDao.getMaxNum(map);
+	}
+
+	@Override
+	public Map<String, Object> detail(int num) {
+		return this.boardDao.detail(num);
+	}
+
+	@Override
+	public int updateBoard(Map<String, Object> map) {
+		return this.boardDao.updateBoard(map);
+	}
+
+	@Override
+	public int upCount(int num) {
+		return this.boardDao.upCount(num);
+	}
+
+	@Override
+	public int deleteBoard(int num) {
+		return this.boardDao.deleteBoard(num);
+	}
 	
 }

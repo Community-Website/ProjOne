@@ -2,9 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
-<%
-	String uId = (String)session.getAttribute("uId_Session"); 
-%>
+<c:set var="uId_Session" value="${sessionScope.uId_Session}"/>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -46,9 +44,9 @@
 							<tr>
 								<td class="req">성명</td>  <!-- td.req 필수입력 -->
 								<td>
-									<input type="text" name="uName" id="${uName}">
-									<input type="hidden" name="uName" id="${uName}" >
-									<input type="hidden" name="uId" value="${uId}">
+									${uName }
+									<input type="hidden" name="uName" id="uName" value="${uName}">
+									<input type="hidden" name="uId" id="uId" value="${uId_Session}">
 								</td>
 							</tr>
 							<tr>
@@ -99,13 +97,12 @@
 						</tfoot>
 					</table>
 					<input type="hidden" name="ip" value="<%=request.getRemoteAddr()%>">
-				    <!--  
-				    IP주소를 IPv4 형식으로 설정함.(IPv6 형식이 기본으로 설정되어 있음)
-				    프로젝트 => Run Configuration => Tomcat 클릭
-				    => (x)Argument => VM arguments 입력란 =>
-				    -Djava.net.preferIPv4Stack=true  
-				     -->
-								
+					    <!--  
+					    IP주소를 IPv4 형식으로 설정함.(IPv6 형식이 기본으로 설정되어 있음)
+					    프로젝트 => Run Configuration => Tomcat 클릭
+					    => (x)Argument => VM arguments 입력란 =>
+					    -Djava.net.preferIPv4Stack=true  
+					     -->							
 				</form>
 
     		</div>

@@ -2,8 +2,7 @@
  * 
  */
 $(function(){
-	
-	
+
 	/* 리스트 페이지 글쓰기 버튼 시작 /bbs/list.jsp */	
 	$("#loginAlertBtn").click(function(){		
 		alert("로그인 후 게시글을 작성하실 수 있습니다.");
@@ -23,7 +22,7 @@ $(function(){
 			alert("제목은 필수입력입니다.");
 			$("#subject").focus();
 		} else {
-			$("#writeFrm").attr("action", "/bbs/writeProc.jsp");
+			$("#writeFrm").attr("action", "/bbs/write");
 			$("#writeFrm").submit();
 		}
 	
@@ -44,7 +43,7 @@ $(function(){
 			let p3 = $("#pKeyField").val().trim();  // p3 : keyField
 		    let p4 = $("#pKeyWord").val().trim();  // p4 : keyWord
 		    
-			let url = "/bbs/deleteProc.jsp?";
+			let url = "/bbs/delete?";
 				url += "num="+num+"&nowPage="+nowPage;
 				url += "&keyField="+p3;
 				url += "&keyWord="+p4;
@@ -67,7 +66,7 @@ $(function(){
 		let p3 = $("#pKeyField").val().trim();  // p3 : keyField
 	    let p4 = $("#pKeyWord").val().trim();  // p4 : keyWord
 	
-		let url = "/bbs/modify.jsp?";
+		let url = "/bbs/modify?";
 			url += "num="+num;
 			url += "&nowPage="+nowPage;
 			url += "&keyField="+p3;
@@ -109,7 +108,7 @@ $(function(){
 		let p3 = $("#pKeyField").val().trim();  // p3 : keyField
 	    let p4 = $("#pKeyWord").val().trim();  // p4 : keyWord
 	
-		let url = "/bbs/reply.jsp?";
+		let url = "/bbs/reply?";
 			url += "num="+num;
 			url += "&nowPage="+nowPage;
 			url += "&keyField="+p3;
@@ -159,7 +158,7 @@ $(function(){
 		let p3 = $("#pKeyField").val().trim();  // p3 : keyField
 	    let p4 = $("#pKeyWord").val().trim();  // p4 : keyWord
 	     
-		let url = "/bbs/list.jsp?nowPage=" + param;		    
+		let url = "/bbs/list?nowPage=" + param;		    
 		    url += "&keyField="+p3;
 	     	url += "&keyWord="+p4 ; 
 		location.href=url;
@@ -170,19 +169,19 @@ $(function(){
 });
 	
 	
-/* 상세내용 보기 페이지 이동 시작 /bbs/list.jsp => read.jsp */
-function read(p1, p2) {
+/* 상세내용 보기 페이지 이동 시작 /bbs/list.jsp => detail.jsp */
+function detail(p1, p2) {
 	// p1 : num (게시글의 고유번호, 고유값, 키값 : Key Value)
 	// p2 : nowPage (현재페이지)
     let p3 = $("#pKeyField").val().trim();  // p3 : keyField
     let p4 = $("#pKeyWord").val().trim();  // p4 : keyWord
-	let param = "read.jsp?num="+p1;
+	let param = "detail?num="+p1;
 	     param += "&nowPage="+p2;
 	     param += "&keyField="+p3;
 	     param += "&keyWord="+p4 ; 
 	location.href=param;
 }		
-/* 상세내용 보기 페이지 이동 끝 /bbs/list.jsp => read.jsp  */
+/* 상세내용 보기 페이지 이동 끝 /bbs/list.jsp => detail.jsp  */
 
 
 
@@ -192,7 +191,7 @@ function movePage(p1) {    // 페이지 이동
     let p3 = $("#pKeyField").val().trim();  // p3 : keyField
     let p4 = $("#pKeyWord").val().trim();  // p4 : keyWord
 
-	let param = "/bbs/list.jsp?nowPage="+p1;	    
+	let param = "/bbs/list?nowPage="+p1;	    
 	     param += "&keyField="+p3;
 	     param += "&keyWord="+p4 ; 
 	location.href= param;
@@ -213,12 +212,12 @@ function moveBlock(p1, p2, param3) {
     let p4 = $("#pKeyWord").val().trim();  // p4 : keyWord
 	
 	if (param3 == 'pb') {
-		 param = "/bbs/list.jsp?nowPage="+(moveBlock*pagePerBlock);
+		 param = "/bbs/list?nowPage="+(moveBlock*pagePerBlock);
 	                                                          // moveBlock : nowBlock - 1 
 	     param += "&keyField="+p3;
 	     param += "&keyWord="+p4 ;
 	} else if (param3 == 'nb' ) {		
-		 param = "/bbs/list.jsp?nowPage="+(pagePerBlock*(moveBlock-1)+1);   
+		 param = "/bbs/list?nowPage="+(pagePerBlock*(moveBlock-1)+1);   
 	                                                          // moveBlock : nowBlock + 1 
 	     param += "&keyField="+p3;
 	     param += "&keyWord="+p4 ;

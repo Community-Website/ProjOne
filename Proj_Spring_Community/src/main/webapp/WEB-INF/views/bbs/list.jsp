@@ -2,8 +2,22 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:set var="uId_Session" value="${sessionScope.uId_Session }"/>
+
+<c:if test="${empty param.keyWord }">
+	<c:set var="keyWord" value=""/>
+</c:if>
+<c:if test="${!empty param.keyWord }">
+	<c:set var="keyWord" value="${param.keyWord }"/>
+</c:if>
+<c:if test="${empty param.keyField }">
+	<c:set var="keyField" value=""/>
+</c:if>
+<c:if test="${!empty param.keyField }">
+	<c:set var="keyField" value="${param.keyField }"/>
+</c:if>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -67,11 +81,11 @@
 				</tr>			
 			</c:if>
 			<c:if test="${!empty list}">
-				<c:forEach var="i" begin="1" end="${list.size()}">			
+				<c:forEach var="i" begin="0" end="${list.size()}">			
 					<c:set var="board" value="${list[i]}" />		
 					<tr>	
 						<td>${board.num }</td>
-						<td>${board.subject }</td>
+						<td><a href="detail?num=${board.num}">${board.subject }</a></td>
 						<td>${board.uName }</td>
 						<td>
 							<fmt:parseDate  value="${board.regTM}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedRegTm" type="both" />
@@ -100,17 +114,17 @@
 								<div>
 									<select name="keyField" id="keyField">
 										<option value="subject" 
-											<c:if test="${param.keyField=='subject'}">
+											<c:if test="${keyField=='subject'}">
 												selected = "selected"
 											</c:if>
 										>제  목</option>
 										<option value="uName" 
-											<c:if test="${param.keyField=='uName'}">
+											<c:if test="${keyField=='uName'}">
 												selected = "selected"
 											</c:if>	
 										>이  름</option>
 										<option value="content" 
-											<c:if test="${param.keyField=='content'}">
+											<c:if test="${keyField=='content'}">
 												selected = "selected"
 											</c:if>	
 										>내  용</option>
@@ -118,7 +132,7 @@
 								</div>
 								<div>
 									<input type="text" name="keyWord" id="keyWord"
-									  id="keyWord" size="20" maxlength="30" value="${param.keyWord}">
+									  id="keyWord" size="20" maxlength="30" value="${keyWord}">
 								</div>
 								<div>
 									<button type="button" id="searchBtn" class="listBtnStyle">검색</button>
@@ -127,8 +141,8 @@
 							</form>
 							
 							<!-- 검색결과 유지용 매개변수 데이터시작 -->
-							<input type="hidden" id="pKeyField" value="${param.keyField}">
-							<input type="hidden" id="pKeyWord" value="${param.KeyWord}">
+							<input type="hidden" id="pKeyField" value="${keyField}">
+							<input type="hidden" id="pKeyWord" value="${keyWord}">
 							<!-- 검색결과 유지용 매개변수 데이터끝 -->
 						
 						</td>
@@ -138,7 +152,47 @@
 						
 					<!-- 페이징(= 페이지 나누기) 시작 -->
 						<td colspan="5" id="pagingTd">
-					
+						<c:set var="pageStart" value="${(nowBlock-1) * pagingInfo.recordCountPerPage +1 }"/>
+						<c:set var="pageEnd" value=""/>
+						<c:if test="${pagingInfo.totalPage != 0}">
+							<c:choose>
+								<c:when test="${nowBlock < totalBlock }">
+									<c:set var="pageEnd" value="${pagingInfo.pageStart + pagingInfo.recordCountPerPage - 1 }"/>
+								</c:when>
+								<c:otherwise>							
+									<c:set var="pageEnd" value="${pagingInfo.totalPage }"/>
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${nowBlock >1 }">
+									<span class="moveBlockArea" onclick="moveBlock('${nowBlock -1 }', '${pagingInfo.recordCountPerPage }', 'pb')">
+									&lt;
+									</span>
+								</c:when>
+								<c:otherwise>							
+									<span class="moveBlockArea" ></span>
+								</c:otherwise>
+							</c:choose>
+							<!-- 페이지 나누기용 페이지 번호 출력 시작  -->
+							<c:forEach var="i" begin="${pageStart }" end="${pageEnd }">
+								<c:choose>
+									<c:when test="${i == pagingInfo.currentPage }">
+										<span class="nowPageNum">${i }</span>
+									</c:when>
+									<c:otherwise>							
+										<span class="pageNum" onclick="movePage('${i }')">${i }</span>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							<c:choose>
+								<c:when test="${totalBlock > nowBlock }">
+									<span  class="moveBlockArea" onclick="moveBlock('${nowBlock +1 }', '${pagingInfo.recordCountPerPage }', 'nb')">&gt;</span>
+								</c:when>
+								<c:otherwise>							
+									<span class="moveBlockArea"></span>
+								</c:otherwise>
+							</c:choose>
+						</c:if>
 						</td>
 					</tr>
 					

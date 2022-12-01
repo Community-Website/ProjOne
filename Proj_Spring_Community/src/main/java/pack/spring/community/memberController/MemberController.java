@@ -124,6 +124,7 @@ public class MemberController {
 	@RequestMapping(value = "/member/create", method = RequestMethod.POST)
 	public ModelAndView createPost(@RequestParam Map<String, Object> map) {
 		String value = (String) map.get("uHobby");
+		System.out.println(value);
 		String[] hobby = value.split(" ");
 		String[] hobbyName = {"인터넷", "여행", "게임", "영화", "운동"};
 		char[] hobbyCode = {'0', '0', '0', '0', '0'};

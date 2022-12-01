@@ -10,21 +10,61 @@
 			insert into tblBoard (uId, uName, subject, content, pos, ref, depth, 
 				regTM, ip, readCnt, fileName, fileSize)
 			values (#{uId}, #{uName}, #{subject}, #{content}, 0, #{ref}, 0, 
-				#{regTM}, #{ip}, 0, #{fileName}, #{fileSize})
+				now(), #{ip}, 0, #{fileName}, #{fileSize})
 		]]>
 	</insert>
+	
+	<!-- 댓글 -->
+	<select id="selectMaxNum" parameterType="hashMap" resultType="int">
+		<![CDATA[
+				select max(num) from tblBoard
+		]]>	
+	</select>
 	
 	<!-- 글 목록 -->
 	<select id="selectAll" parameterType="hashMap" resultType="hashMap">
 		<![CDATA[
-			select * from tblBoard order by num desc
+			select * from tblBoard 
 		]]>
-	</select>
-<!-- 	
-	<select id="getTotalRecord" parameterType="hashMap" resultType="int">
+			<if test='keyWord != null and keyWord != "" '>
+				where ${keyField } like '%${keyWord}%'
+ 			</if>
 		<![CDATA[
-			select count(*) from tblBoard
+				order by num desc
 		]]>
 	</select>
- -->
+	
+	<!-- 글 상세 정보 -->
+	<select id="selectDetail" parameterType="int" resultType="hashMap">
+		<![CDATA[
+			select * from tblBoard where num = #{num}
+		]]>
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="upCount" parameterType="int">
+		<![CDATA[
+			update tblBoard 
+			set readCnt = readCnt+1
+			where num = #{num}
+		]]>
+	</update>
+	
+	<!-- 글 수정 -->
+	<update id="updateBoard" parameterType="hashMap">
+		<![CDATA[
+			update tblBoard 
+			set subject = #{subject}, content = #{content}
+			where num = #{num}
+		]]>
+	</update>
+	
+	<!-- 글 삭제 -->
+	<delete id="deleteBoard" parameterType="int">
+		<![CDATA[
+			delete from tblBoard 
+			where num = #{num}
+		]]>
+	</delete>
+
 </mapper>

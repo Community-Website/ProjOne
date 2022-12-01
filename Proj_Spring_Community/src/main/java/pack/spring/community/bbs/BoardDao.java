@@ -23,5 +23,31 @@ public class BoardDao {
 	public List<Map<String, Object>> boardList(Map<String, Object> map){
 		return this.sqlSessionTemplate.selectList("bbs.selectAll", map);
 	}
+	
+	// 전체 게시글 수 
+	public int getMaxNum(Map<String, Object> map) {
+		return this.sqlSessionTemplate.selectOne("bbs.selectMaxNum", map);
+	}
+	
+	// 게시글 상세 보기
+	public Map<String, Object> detail(int num){
+		return this.sqlSessionTemplate.selectOne("bbs.selectDetail", num);
+	}
+	
+	// 조회수 증가
+	public int upCount(int num) {
+		return this.sqlSessionTemplate.update("upCount", num);
+	}
+	
+	// 게시글 수정하기
+	public int updateBoard(Map<String, Object> map) {
+		return this.sqlSessionTemplate.update("bbs.updateBoard", map);
+	}
+	
+	// 게시글 삭제하기
+	public int deleteBoard(int num) {
+		return this.sqlSessionTemplate.delete("bbs.deleteBoard", num	);
+	}
+	
 
 }
