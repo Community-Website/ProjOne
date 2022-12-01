@@ -153,16 +153,16 @@
     							<td>취미</td>
     							<td>    							
     								<label> 인터넷
-    									 <input type="checkbox" name="uHobby" value="인터넷 ">
+    									 <input type="checkbox" name="uHobby" value="인터넷">
     								</label>						
     								<label> 여행
-    									 <input type="checkbox" name="uHobby" value="여행 ">
+    									 <input type="checkbox" name="uHobby" value="여행">
     								</label>						
     								<label> 게임
-    									 <input type="checkbox" name="uHobby" value="게임 ">
+    									 <input type="checkbox" name="uHobby" value="게임">
     								</label>						
     								<label> 영화
-    									 <input type="checkbox" name="uHobby" value="영화 ">
+    									 <input type="checkbox" name="uHobby" value="영화">
     								</label>						
     								<label> 운동
     									 <input type="checkbox" name="uHobby" value="운동">
