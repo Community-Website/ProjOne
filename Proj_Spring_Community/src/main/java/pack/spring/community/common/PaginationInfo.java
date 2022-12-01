@@ -8,8 +8,8 @@ public class PaginationInfo {
 	private int blockSize; //블럭당 보여질 페이지 수
 	private int firstPage;  //블럭당 시작 페이지, 1, 11, 21, 31, ...
 	private int lastPage; //블럭당 마지막 페이지 10, 20, 30, 40, ...
-	private int lastRecordIndex;  //페이지당 마지막 인덱스	5,10,15,20....
 	private int firstRecordIndex; //curPos, 페이지당 시작 인덱스 0, 5, 10, 15 ...
+	private int num;  //페이지당 시작 글 번호
 	
 	public PaginationInfo(int currentPage, int totalRecord, int recordCountPerPage, int blockSize) {
 		this.currentPage = currentPage;
@@ -20,8 +20,8 @@ public class PaginationInfo {
 		totalPage = (int)Math.ceil((float)totalRecord/recordCountPerPage);;
 		firstPage = currentPage-((currentPage-1)%blockSize);
 		lastPage = firstPage+(blockSize-1);
-		lastRecordIndex = (currentPage-1)*recordCountPerPage;
-		firstRecordIndex = totalRecord-lastRecordIndex;
+		firstRecordIndex = (currentPage-1)*recordCountPerPage;
+		num = totalRecord-firstRecordIndex;
 	}
 
 	public int getCurrentPage() {
@@ -80,12 +80,14 @@ public class PaginationInfo {
 		this.lastPage = lastPage;
 	}
 
-	public int getLastRecordIndex() {
-		return lastRecordIndex;
+	
+
+	public int getNum() {
+		return num;
 	}
 
-	public void setLastRecordIndex(int lastRecordIndex) {
-		this.lastRecordIndex = lastRecordIndex;
+	public void setNum(int num) {
+		this.num = num;
 	}
 
 	public int getFirstRecordIndex() {
@@ -100,9 +102,11 @@ public class PaginationInfo {
 	public String toString() {
 		return "PaginationInfo [currentPage=" + currentPage + ", totalRecord=" + totalRecord + ", recordCountPerPage="
 				+ recordCountPerPage + ", totalPage=" + totalPage + ", blockSize=" + blockSize + ", firstPage="
-				+ firstPage + ", lastPage=" + lastPage + ", lastRecordIndex=" + lastRecordIndex + ", firstRecordIndex="
-				+ firstRecordIndex + "]";
+				+ firstPage + ", lastPage=" + lastPage + ", firstRecordIndex=" + firstRecordIndex + ", num=" + num
+				+ "]";
 	}
+
+	
 	
 	
 	
