@@ -139,7 +139,7 @@ JavaScript파일을 기존 회원가입소스를 활용할 것인지 새롭게 �
 							<tr>
 								<td>취미</td>
 								<td>
-									<label> 인터넷 <input type="checkbox" name="uHobby" value="인터넷" 
+									<label> 인터넷 <input type="checkbox" name="uHobby" value="인터넷 " 
 										<c:if test="${fn:substring(mBean.uHobby,0,1) eq'1'}">
 										    checked="checked"
 										</c:if>
