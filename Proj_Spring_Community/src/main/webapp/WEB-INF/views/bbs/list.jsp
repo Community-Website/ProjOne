@@ -89,7 +89,7 @@
 						<c:set var="board" value="${list[curPos]}" />		
 						<c:set var="curPos" value="${curPos+1 }"/>
 						<c:set var="num" value="${num-1 }"/>		  		
-					<tr class="prnTr" onclick="read('${board.num }', '${nowBlock}')">	
+					<tr class="prnTr" onclick="detail('${board.num }', '${nowBlock}')">	
 						<c:if test="${board.depth eq 0}">
 							<td>${board.num }</td>
 						</c:if>
@@ -104,7 +104,7 @@
 								</c:forEach>
 								<img src='/resources/images/replyImg.png' alt='reply'>&nbsp;
 							</c:if>
-							<a href="detail?num=${board.num}">${board.subject }</a>
+							${board.subject }
 							<c:if test="${!empty board.fileName}">
 								&nbsp;<img src='/resources/images/file_Clip.png' alt='"+ ${fileName} +"'>
 							</c:if>
