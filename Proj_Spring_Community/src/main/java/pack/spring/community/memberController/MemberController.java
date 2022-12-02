@@ -75,6 +75,7 @@ public class MemberController {
 		}
 		return new ModelAndView("/member/loginProc");
 	}
+	
 	// 로그아웃 get
 	@RequestMapping(value = "/member/logout", method = RequestMethod.GET)
 	public ModelAndView logoutProc(HttpServletRequest request) {
@@ -82,11 +83,13 @@ public class MemberController {
 		session.invalidate();
 		return new ModelAndView("/member/logout");
 	}
+	
 	// 마이페이지 get
 	@RequestMapping(value = "/member/myPage", method = RequestMethod.GET)
 	public ModelAndView myPageProc() {
 		return new ModelAndView("/member/myPage");
 	}
+	
 	// 회원정보수정 get
 	@RequestMapping(value = "/member/memberMod", method = RequestMethod.GET)
 	public ModelAndView memberMod(HttpServletRequest request,@RequestParam String uId) {
