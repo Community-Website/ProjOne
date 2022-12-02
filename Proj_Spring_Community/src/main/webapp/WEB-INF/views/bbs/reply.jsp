@@ -40,7 +40,7 @@
     		<div id="contents" class="reply">
     		
 				<!--  답변페이지 내용 출력 시작 -->
-				<form name="replyFrm" action="replyProc.jsp" method="get" id="replyFrm">
+				<form name="replyFrm" action="/bbs/reply" method="post" id="replyFrm">
 			
 					<h2>답변글 작성</h2>
 						
@@ -93,12 +93,12 @@
 						</tfoot>
 						 
 					</table>
-					<input type="hidden" name="num" value="${num}" id="num">				
-					<input type="hidden" name="uId" value="${uId}">	
+					<input type="hidden" name="num" value="${orignal.num}" id="num">				
+					<input type="hidden" name="uId" value="${orignal.uId}">	
 					<input type="hidden" name="uName" value="${replyName}">
-					<input type="hidden" name="ref" value="${ref}">				
-					<input type="hidden" name="depth" value="${depth}">				
-					<input type="hidden" name="pos" value="${pos}">
+					<input type="hidden" name="ref" value="${orignal.ref}">				
+					<input type="hidden" name="depth" value="${orignal.depth}">				
+					<input type="hidden" name="pos" value="${orignal.pos}">
 					
 					<input type="hidden" name="nowPage" value="${nowPage}" id="nowPage">
 					<input type="hidden" name="ip" value="<%=request.getRemoteAddr()%>">

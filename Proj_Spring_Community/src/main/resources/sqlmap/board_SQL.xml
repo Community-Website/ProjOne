@@ -24,7 +24,7 @@
 				where ${keyField } like '%${keyWord}%'
  			</if>
 		<![CDATA[
-				order by num desc
+				order by ref desc, pos asc
 		]]>
 	</select>
 	
@@ -73,7 +73,7 @@
 		<![CDATA[
 			insert into tblBoard (uId, uName, subject, content, pos, ref, depth, 
 				regTM, ip, readCnt)
-			values (#{uId}, #{uName}, #{subject}, #{content}, #{pos}, #{ref}, #{depth}, 
+			values (#{uId}, #{uName}, #{subject}, #{content}, #{pos}+1 , #{ref}, #{depth}+1 , 
 				now(), #{ip}, 0)
 		]]>
 	</insert>

@@ -299,13 +299,18 @@ public class BoardController {
 	
 	// 댓글 등록 화면 보여주기
 	@RequestMapping(value = "/bbs/reply", method = RequestMethod.GET)
-	public ModelAndView reply(@RequestParam int num) {
+	public ModelAndView reply(HttpServletRequest request, @RequestParam int num) {
+		HttpSession session = request.getSession();
+		String uId = (String) session.getAttribute("uId_Session");
+		
+		String replyName = this.memberService.getMemberName(uId);
 		
 		Map<String, Object> orignal = this.boardService.detail(num);
 		System.out.println(orignal);
 		
 		ModelAndView mav = new ModelAndView();
 		
+		mav.addObject("replyName", replyName);
 		mav.addObject("orignal", orignal);
 		mav.setViewName("/bbs/reply");
 		
@@ -314,23 +319,15 @@ public class BoardController {
 	
 	// 댓글 등록 처리
 	@RequestMapping(value = "/bbs/reply", method = RequestMethod.POST)
-	public ModelAndView replyPost(@RequestParam Map<String, Object> map) {
+	public ModelAndView replyPost(@RequestParam Map<String, Object> map, @RequestParam int num) {
 		ModelAndView mav = new ModelAndView();
 		
-		int depth = (int)map.get("depth") + 1;
-		int pos = (int)map.get("pos") + 1;
-		
 		int replyUp = this.boardService.replyUp(map); 
-		
-		int cnt = this.boardService.replyBoard(map);
-		
-		
-		System.out.println(depth);
-		System.out.println(pos);
-		
+				
+		int cnt = this.boardService.replyBoard(map);	
 		
 		if(cnt == 0) {
-			mav.setViewName("redirect:/bbs/reply");
+			mav.setViewName("redirect:/bbs/reply?num="+num);
 		}else {
 			
 			mav.setViewName("redirect:/bbs/list");

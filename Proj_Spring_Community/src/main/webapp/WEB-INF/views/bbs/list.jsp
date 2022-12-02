@@ -50,17 +50,17 @@
 	    	<!-- 실제 작업 영역 시작 -->
     		<div id="contents" class="bbsList">
     		
-    		<%-- <c:set var="prnType" value=" "/>
-    		<c:if test="${empty param.keyWord }">
+    		<c:set var="prnType" value=" "/>
+    		<c:if test="${empty keyWord }">
     			<c:set var="prnType" value= "전체 게시글"/>
     		</c:if>
-    		<c:if test="${!empty param.keyWord }">
+    		<c:if test="${!empty keyWord }">
     			<c:set var="prnType" value= "검색 결과"/>
     		</c:if>	
 	    		<div id="pageInfo" class="dFlex">
-					<span>prnType :  ${pagingInfo.totalRecord} 개</span>
-					<span>페이지 : ${pagingInfo.currentpage}  / ${paging.totalPage}</span>  			
-				</div>			 --%>			
+					<span>${prnType} :  ${pagingInfo.totalRecord} 개</span>
+					<span>페이지 : ${nowBlock}  / ${pagingInfo.totalPage}</span>  			
+				</div>			
 			<table id="boardList">
 				<thead>
 					<tr>
@@ -80,17 +80,35 @@
 					<td colspan="5">게시물이 없습니다.</td>
 				</tr>			
 			</c:if>
-			<c:if test="${!empty list}">
-				<c:set var="num" value="${pagingInfo.num }"/>
+			<c:if test="${!empty list}">			
+				<c:set var="num" value="${pagingInfo.num }"/>				
 				<c:set var="curPos" value="${pagingInfo.firstRecordIndex}"/>
+				
 				<c:forEach var="i" begin="1" end="${pagingInfo.recordCountPerPage}">
 					<c:if test="${num>=1 }">
 						<c:set var="board" value="${list[curPos]}" />		
 						<c:set var="curPos" value="${curPos+1 }"/>
 						<c:set var="num" value="${num-1 }"/>		  		
-					<tr>	
-						<td>${board.num }</td>
-						<td><a href="detail?num=${board.num}">${board.subject }</a></td>
+					<tr class="prnTr" onclick="read('${board.num }', '${nowBlock}')">	
+						<c:if test="${board.depth eq 0}">
+							<td>${board.num }</td>
+						</c:if>
+						<c:if test="${board.depth ne 0}">
+							<td></td>
+						</c:if>
+						<td class="subjectTd">
+							<c:if test="${board.depth>0}">
+								<c:set var="blank" value="0"/>
+								<c:forEach var="blank" begin="1" end="${board.depth}">
+									&nbsp;&nbsp;&nbsp;&nbsp;
+								</c:forEach>
+								<img src='/resources/images/replyImg.png' alt='reply'>&nbsp;
+							</c:if>
+							<a href="detail?num=${board.num}">${board.subject }</a>
+							<c:if test="${!empty board.fileName}">
+								&nbsp;<img src='/resources/images/file_Clip.png' alt='"+ ${fileName} +"'>
+							</c:if>
+						</td>
 						<td>${board.uName }</td>
 						<td>
 							<fmt:parseDate  value="${board.regTM}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedRegTm" type="both" />
@@ -100,6 +118,7 @@
 					</tr>	
 				  	</c:if>			
 				</c:forEach>
+				
 			</c:if>	
 					<tr id="listBtnArea">
 						<td colspan="2">
