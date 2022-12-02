@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.protobuf.Empty;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -118,7 +119,7 @@ public class BoardController {
 
 	// 글 목록 불러오기
 	@RequestMapping(value = "/bbs/list")
-	public ModelAndView list(@RequestParam Map<String, Object> map) {
+	public ModelAndView list(@RequestParam Map<String, Object> map,@RequestParam(value="nowPage", required = false) String nowPage) {
 
 		//System.out.println("글 목록 불러오기 map=" + map.get("keyWord") + map.get("keyField"));
 		List<Map<String, Object>> list = this.boardService.list(map);
@@ -137,8 +138,10 @@ public class BoardController {
 		 * 페이징 변수값의 이해 totalRecord=> 200 전체레코드 numPerPage => 10 pagePerBlock => 5
 		 * totalPage => 20 totalBlock => 4 (20/5 => 4)
 		 */
-
 		int currentPage = 1; // 현재 (사용자가 보고 있는) 페이지 번호
+		if(nowPage !=null&& !nowPage.isEmpty()) {
+			currentPage=Integer.parseInt(nowPage);
+		}
 		int nowBlock = 1; // 현재 (사용자가 보고 있는) 블럭
 
 		int start = 0; // DB에서 데이터를 불러올 때 시작하는 인덱스 번호

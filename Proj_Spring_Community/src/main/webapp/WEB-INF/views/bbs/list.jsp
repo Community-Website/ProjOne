@@ -81,8 +81,13 @@
 				</tr>			
 			</c:if>
 			<c:if test="${!empty list}">
-				<c:forEach var="i" begin="0" end="${list.size()}">			
-					<c:set var="board" value="${list[i]}" />		
+				<c:set var="num" value="${pagingInfo.num }"/>
+				<c:set var="curPos" value="${pagingInfo.firstRecordIndex}"/>
+				<c:forEach var="i" begin="1" end="${pagingInfo.recordCountPerPage}">
+					<c:if test="${num>=1 }">
+						<c:set var="board" value="${list[curPos]}" />		
+						<c:set var="curPos" value="${curPos+1 }"/>
+						<c:set var="num" value="${num-1 }"/>		  		
 					<tr>	
 						<td>${board.num }</td>
 						<td><a href="detail?num=${board.num}">${board.subject }</a></td>
@@ -93,6 +98,7 @@
 						</td>
 						<td>${board.readCnt}</td>
 					</tr>	
+				  	</c:if>			
 				</c:forEach>
 			</c:if>	
 					<tr id="listBtnArea">
