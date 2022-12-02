@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:choose>
-	<c:when test="${param.joinRes =='true'}">
+	<c:when test="${param.joinRes ==true}">
 		<script type="text/javascript">
 		alert("회원가입하셨습니다.");
 		location.href="/";
