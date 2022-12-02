@@ -49,5 +49,13 @@ public class BoardDao {
 		return this.sqlSessionTemplate.delete("bbs.deleteBoard", num	);
 	}
 	
-
+	// 댓글 등록하기
+	public int replyBoard(Map<String, Object> map	) {
+		return this.sqlSessionTemplate.insert("bbs.replyBoard", map);
+	}
+	
+	// 댓글 끼어들기
+	public int replyUp(Map<String, Object> map	) {
+		return this.sqlSessionTemplate.update("bbs.replyUp", map);
+	}
 }

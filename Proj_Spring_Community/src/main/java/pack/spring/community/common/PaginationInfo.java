@@ -80,8 +80,6 @@ public class PaginationInfo {
 		this.lastPage = lastPage;
 	}
 
-	
-
 	public int getNum() {
 		return num;
 	}
@@ -104,11 +102,5 @@ public class PaginationInfo {
 				+ recordCountPerPage + ", totalPage=" + totalPage + ", blockSize=" + blockSize + ", firstPage="
 				+ firstPage + ", lastPage=" + lastPage + ", firstRecordIndex=" + firstRecordIndex + ", num=" + num
 				+ "]";
-	}
-
-	
-	
-	
-	
-	
+	}	
 }

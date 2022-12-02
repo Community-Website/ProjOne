@@ -27,4 +27,10 @@ public interface BoardService {
 	// 게시글 삭제
 	int deleteBoard(int num);
 	
+	// 댓글 등록
+	int replyBoard(Map<String, Object> map);
+	
+	// 댓글 끼어들기
+	int replyUp(Map<String, Object> map);
+	
 }

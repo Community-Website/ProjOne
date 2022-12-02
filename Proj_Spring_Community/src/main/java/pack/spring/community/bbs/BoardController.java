@@ -1,15 +1,23 @@
 package pack.spring.community.bbs;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.PageContext;
 
+import org.apache.jasper.tagplugins.jstl.core.Out;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -209,14 +217,41 @@ public class BoardController {
 		Map<String, Object> detailMap = this.boardService.detail(num);
 		
 		ModelAndView mav = new ModelAndView();
-
+		
 		mav.addObject("detail", detailMap);
 		mav.setViewName("/bbs/detail");
 
 		return mav;
 	}
 	
-
+	// 첨부파일 다운로드
+	public void download(HttpServletRequest request, HttpServletResponse response,
+			JspWriter out, PageContext pageContext) throws IOException {
+		String fileName = request.getParameter("fileName");
+		File file = new File(UtilMgr.con(SAVEFOLER + File.separator + fileName));
+		
+		byte[] b = new byte[(int) file.length()];
+		response.setHeader("Accept-Ranges", "bytes");
+		String strClient = request.getHeader("User-Agent");
+		response.setContentType("application/smnet;charset=UTF-8");
+		response.setHeader("Content-Disposition", "attachment;fileName=" + fileName + ";");
+		
+		out.clear();
+		out = pageContext.pushBody();
+		
+		if(file.isFile()) {
+			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
+			BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
+			int read = 0;
+			while((read = bis.read(b)) != -1) {
+				bos.write(b, 0, read);
+			}
+			bos.close();
+			bis.close();
+		}
+		
+	}
+	
 	// 글 수정 페이지 보기
 	@RequestMapping(value = "/bbs/modify", method = RequestMethod.GET)
 	public ModelAndView modify(@RequestParam int num) {
@@ -259,6 +294,47 @@ public class BoardController {
 			mav.setViewName("redirect:/bbs/list");
 		}
 		
+		return mav;
+	}
+	
+	// 댓글 등록 화면 보여주기
+	@RequestMapping(value = "/bbs/reply", method = RequestMethod.GET)
+	public ModelAndView reply(@RequestParam int num) {
+		
+		Map<String, Object> orignal = this.boardService.detail(num);
+		System.out.println(orignal);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("orignal", orignal);
+		mav.setViewName("/bbs/reply");
+		
+		return mav;
+	}
+	
+	// 댓글 등록 처리
+	@RequestMapping(value = "/bbs/reply", method = RequestMethod.POST)
+	public ModelAndView replyPost(@RequestParam Map<String, Object> map) {
+		ModelAndView mav = new ModelAndView();
+		
+		int depth = (int)map.get("depth") + 1;
+		int pos = (int)map.get("pos") + 1;
+		
+		int replyUp = this.boardService.replyUp(map); 
+		
+		int cnt = this.boardService.replyBoard(map);
+		
+		
+		System.out.println(depth);
+		System.out.println(pos);
+		
+		
+		if(cnt == 0) {
+			mav.setViewName("redirect:/bbs/reply");
+		}else {
+			
+			mav.setViewName("redirect:/bbs/list");
+		}
 		return mav;
 	}
 }

@@ -56,5 +56,15 @@ public class BoardServiceImp implements BoardService{
 	public int deleteBoard(int num) {
 		return this.boardDao.deleteBoard(num);
 	}
+
+	@Override
+	public int replyBoard(Map<String, Object> map) {
+		return this.boardDao.replyBoard(map);
+	}
+
+	@Override
+	public int replyUp(Map<String, Object> map) {
+		return this.boardDao.replyUp(map);
+	}
 	
 }

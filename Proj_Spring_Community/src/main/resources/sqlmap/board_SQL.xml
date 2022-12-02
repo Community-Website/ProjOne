@@ -14,12 +14,6 @@
 		]]>
 	</insert>
 	
-	<!-- 댓글 -->
-	<select id="selectMaxNum" parameterType="hashMap" resultType="int">
-		<![CDATA[
-				select max(num) from tblBoard
-		]]>	
-	</select>
 	
 	<!-- 글 목록 -->
 	<select id="selectAll" parameterType="hashMap" resultType="hashMap">
@@ -67,4 +61,28 @@
 		]]>
 	</delete>
 
+	<!-- 댓글 -->
+	<select id="selectMaxNum" parameterType="hashMap" resultType="int">
+		<![CDATA[
+				select max(num) from tblBoard
+		]]>	
+	</select>
+	
+	<!-- 댓글 등록 -->
+	<insert id="replyBoard" parameterType="hashMap" useGeneratedKeys="true" keyProperty="int">
+		<![CDATA[
+			insert into tblBoard (uId, uName, subject, content, pos, ref, depth, 
+				regTM, ip, readCnt)
+			values (#{uId}, #{uName}, #{subject}, #{content}, #{pos}, #{ref}, #{depth}, 
+				now(), #{ip}, 0)
+		]]>
+	</insert>
+	<!-- 댓글 끼어들기 -->
+	<update id="replyUp" parameterType="hashMap">
+		<![CDATA[
+			update tblBoard 
+			set pos = pos + 1
+			where ref = #{ref} and pos > #{pos}
+		]]>
+	</update>
 </mapper>

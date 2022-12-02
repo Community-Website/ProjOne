@@ -1,7 +1,6 @@
 package pack.spring.community.common;
 
-public class UtilMgr {
-	
+public class UtilMgr {	
 	public static String replace(String str, String pattern, String replace) {
                                           // a1=>p1,      a2=>p2,       a3=>p3
 		
@@ -44,5 +43,7 @@ public class UtilMgr {
 		
 		return str;
 	}
+	
+	
 
 }
