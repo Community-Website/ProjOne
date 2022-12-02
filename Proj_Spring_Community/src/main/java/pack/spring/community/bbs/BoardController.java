@@ -1,37 +1,29 @@
 package pack.spring.community.bbs;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.PageContext;
 
-import org.apache.jasper.tagplugins.jstl.core.Out;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.protobuf.Empty;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import pack.spring.community.common.ConstUtil;
 import pack.spring.community.common.PaginationInfo;
-import pack.spring.community.common.SearchVO;
 import pack.spring.community.common.UtilMgr;
 import pack.spring.community.memberModel.MemberService;
 
@@ -236,29 +228,25 @@ public class BoardController {
 	}
 	
 	// 첨부파일 다운로드
-	public void download(HttpServletRequest request, HttpServletResponse response,
-			JspWriter out, PageContext pageContext) throws IOException {
-		String fileName = request.getParameter("fileName");
-		File file = new File(UtilMgr.con(SAVEFOLER + File.separator + fileName));
+	
+	@RequestMapping(value="/downloadFile", method = RequestMethod.GET)
+	public void download(HttpServletResponse response,
+			@RequestParam String filename) throws IOException {
 		
-		byte[] b = new byte[(int) file.length()];
-		response.setHeader("Accept-Ranges", "bytes");
-		String strClient = request.getHeader("User-Agent");
-		response.setContentType("application/smnet;charset=UTF-8");
-		response.setHeader("Content-Disposition", "attachment;fileName=" + fileName + ";");
+		File file = new File(UtilMgr.con(SAVEFOLER + File.separator + filename));
 		
-		out.clear();
-		out = pageContext.pushBody();
+		response.setContentType("application/octet-stream");
+		response.setHeader("Content-disposition", "attachment;filename="+filename);
 		
 		if(file.isFile()) {
-			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
-			BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
-			int read = 0;
-			while((read = bis.read(b)) != -1) {
-				bos.write(b, 0, read);
+			OutputStream os = response.getOutputStream();
+			FileInputStream fis=null;
+			try {
+				fis=new FileInputStream(file);
+				FileCopyUtils.copy(fis, os);
+			}finally {
+				if(fis!=null) fis.close();
 			}
-			bos.close();
-			bis.close();
 		}
 		
 	}

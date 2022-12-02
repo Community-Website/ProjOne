@@ -165,6 +165,12 @@ $(function(){
 	});
 	/* 검색 결과를 유지한 리스트페이지 이동 끝 /bbs/read.jsp */
 	
+	$("#downloadFile").click(function(){
+		let file = $("#downloadFile").html();
+		
+		location.href = "/downloadFile?filename="+file;
+		
+	});
 	
 });
 	
@@ -226,4 +232,8 @@ function moveBlock(p1, p2, param3) {
 	location.href=param;
 }
 /* 리스트페이지 페이징 블럭이동 끝 /bbs/list.jsp */
+
+
+<!-- 첨부파일 다운로드 -->
+
 
