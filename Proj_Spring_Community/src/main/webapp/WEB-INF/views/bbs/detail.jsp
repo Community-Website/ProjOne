@@ -5,11 +5,7 @@
 <!--   errorPage="/err/errorProc.jsp" -->
 
 <c:set var="uId_Session" value="${sessionScope.uId_Session }"/>
-<c:set var="fUnit" value="Bytes"/>
-<c:if test="${detail.fileSize > 1024}">
-	<c:set var="fileSize" value="${detail.fileSize / 1024}" />
-	<c:set var="fUnit" value="KBytes"/>
-</c:if>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -66,8 +62,16 @@
 											id="hiddenFname">
 								<c:if test="${!empty detail.fileName}">
 									<span id="downloadFile">${detail.fileName}</span>							
-									(<span>
-										<fmt:formatNumber value="${fileSize}" pattern=".00"/> ${fUnit}
+									(<span>		
+										<c:set var="fUnit" value="Bytes"/>						
+										<c:if test="${detail.fileSize > 1024}">
+											<c:set var="fileSize" value="${detail.fileSize / 1024}" />
+											<c:set var="fUnit" value="KBytes"/>
+											<fmt:formatNumber value="${fileSize}" pattern=".00"/> ${fUnit}
+										</c:if>
+										<c:if test="${detail.fileSize <= 1024}">
+											<fmt:formatNumber value="${detail.fileSize}" pattern=".00"/> ${fUnit}										
+										</c:if>
 									</span>)
 								</c:if>
 								<c:if test="${empty detail.fileName}">

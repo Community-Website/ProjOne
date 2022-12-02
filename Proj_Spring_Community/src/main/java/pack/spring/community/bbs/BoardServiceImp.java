@@ -16,14 +16,14 @@ public class BoardServiceImp implements BoardService{
 	
 	//게시판 글쓰기
 	@Override
-	public String write(Map<String, Object> map) {
+	public int write(Map<String, Object> map) {
 		int affectRowCnt = this.boardDao.insert(map);
 		
-		if(affectRowCnt == 1) {
-			return map.get("num").toString();
-		}
+		/*
+		 * if(affectRowCnt == 1) { return map.get("num").toString(); }
+		 */
 		
-		return null;
+		return affectRowCnt;
 	}
 
 	//게시판 글목록

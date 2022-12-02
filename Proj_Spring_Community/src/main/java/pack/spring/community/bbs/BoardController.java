@@ -17,6 +17,7 @@ import javax.servlet.jsp.PageContext;
 import org.apache.jasper.tagplugins.jstl.core.Out;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,7 +66,8 @@ public class BoardController {
 
 	// 글 쓰기 입력 처리
 	@RequestMapping(value = "/bbs/write", method = RequestMethod.POST)
-	public ModelAndView writePost(HttpServletRequest request, @RequestParam Map<String, Object> map)
+	public String writePost(HttpServletRequest request, 
+			@RequestParam Map<String, Object> map, Model model)
 			throws IOException {
 
 		ModelAndView mav = new ModelAndView();
@@ -113,16 +115,24 @@ public class BoardController {
 		map.put("fileName", fileName);
 		map.put("fileSize", fileSize);
 
-		String num = this.boardService.write(map);
-
-		if (num == null) {
-			mav.setViewName("redirect:/bbs/write");
-			mav.addObject(num);
+		int cnt = this.boardService.write(map);
+		
+		String msg = "", url="";
+		if (cnt>0) {
+			//mav.setViewName("redirect:/bbs/detail?num=" + num);
+			msg = "글이 등록되었습니다.";
+			url = "/bbs/list";
 		} else {
-			mav.setViewName("redirect:/bbs/detail?num=" + num);
+			//mav.setViewName("redirect:/bbs/write");
+			//mav.addObject(num);
+			msg = "글 등록 실패!";
+			url = "/bbs/write";
 		}
-
-		return mav;
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "/common/message";
 	}
 
 	// 글 목록 불러오기
@@ -131,9 +141,10 @@ public class BoardController {
 
 		//System.out.println("글 목록 불러오기 map=" + map.get("keyWord") + map.get("keyField"));
 		List<Map<String, Object>> list = this.boardService.list(map);
-		for (int i = 0; i < list.size(); i++) {
-			System.out.println((String) list.get(i).get("uName"));
-		}
+		/*
+		 * for (int i = 0; i < list.size(); i++) { System.out.println((String)
+		 * list.get(i).get("uName")); }
+		 */
 		/////////////////////// 페이징 관련 속성 값 시작///////////////////////////
 		// 페이징(Paging) = 페이지 나누기를 의미함
 		int totalRecord = 0; // 전체 데이터 수(DB에 저장된 row 개수)
@@ -267,34 +278,51 @@ public class BoardController {
 	
 	// 글 수정 처리
 	@RequestMapping(value="/bbs/modify", method = RequestMethod.POST)
-	public ModelAndView modifyPost(@RequestParam Map<String, Object> map, @RequestParam int num) {
+	public String modifyPost(@RequestParam Map<String, Object> map, 
+			@RequestParam int num, Model model) {		
 		ModelAndView mav = new ModelAndView();
 		
 		int cnt = this.boardService.updateBoard(map);
 		
-		if(cnt == 0) {
-			mav.setViewName("redirect:/bbs/modify?num="+num);
+		String msg = "", url="";
+		if(cnt > 0) {
+			//mav.setViewName("redirect:/bbs/detail?num="+num);
+			msg = "글이 수정되었습니다.";
+			url = "/bbs/detail?num="+num;
 		}else {
-			mav.setViewName("redirect:/bbs/detail?num="+num);
+			//mav.setViewName("redirect:/bbs/modify?num="+num);
+			msg = "DB처리중 오류가 발생했습니다.\\n문제가 계속되면 관리자에게 연락바랍니다.";
+			url = "/bbs/modify?num="+num;
 		}
 		
-		return mav;
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		return "/common/message";
 	} 
 	
 	// 글 삭제 처리
 	@RequestMapping(value="/bbs/delete", method = RequestMethod.GET)
-	public ModelAndView delete(@RequestParam int num) {
+	public String delete(@RequestParam int num, Model model) {
 		ModelAndView mav = new ModelAndView();
 		
 		int cnt = this.boardService.deleteBoard(num);
 		
-		if(cnt == 0) {
-			mav.setViewName("redirect:/bbs/detail?num="+num);
+		String msg = "", url=""; 
+		if(cnt > 0) {
+			//mav.setViewName("redirect:/bbs/detail?num="+num);
+			msg = "삭제되었습니다!";
+			url = "/bbs/list";
 		}else {
-			mav.setViewName("redirect:/bbs/list");
+			//mav.setViewName("redirect:/bbs/list");
+			msg = "삭제실패!";
+			url = "/bbs/detail?num="+num;
 		}
 		
-		return mav;
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "/common/message";
 	}
 	
 	// 댓글 등록 화면 보여주기
@@ -319,19 +347,27 @@ public class BoardController {
 	
 	// 댓글 등록 처리
 	@RequestMapping(value = "/bbs/reply", method = RequestMethod.POST)
-	public ModelAndView replyPost(@RequestParam Map<String, Object> map, @RequestParam int num) {
+	public String replyPost(@RequestParam Map<String, Object> map, 
+			@RequestParam int num, Model model) {
 		ModelAndView mav = new ModelAndView();
 		
 		int replyUp = this.boardService.replyUp(map); 
 				
 		int cnt = this.boardService.replyBoard(map);	
 		
-		if(cnt == 0) {
-			mav.setViewName("redirect:/bbs/reply?num="+num);
-		}else {
-			
-			mav.setViewName("redirect:/bbs/list");
+		String msg = "", url=""; 
+		if(cnt >0) {
+			//mav.setViewName("redirect:/bbs/list");
+			msg = "댓글이 등록되었습니다!";
+			url = "/bbs/list";
+		}else {		
+			//mav.setViewName("redirect:/bbs/reply?num="+num);
+			msg = "댓글 등록 실패!";
+			url = "/bbs/reply?num="+num;
 		}
-		return mav;
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "/common/message";
 	}
 }

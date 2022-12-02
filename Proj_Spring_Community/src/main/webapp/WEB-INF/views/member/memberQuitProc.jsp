@@ -15,5 +15,5 @@
 			history.back();
 		</script>
 	</c:otherwise>
-</c:choose>>
+</c:choose>
 
