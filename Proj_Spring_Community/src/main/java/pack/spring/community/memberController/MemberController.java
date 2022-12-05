@@ -139,9 +139,15 @@ public class MemberController {
 		map.put("uHobby", new String(hobbyCode));
 		ModelAndView mav = new ModelAndView();
 		boolean joinRes = this.memberService.insertMember(map);
-
-		mav.addObject("joinRes", joinRes);
-		mav.setViewName("redirect:/member/memberProc");
+		String msg = "회원가입 중 문제가 발생했습니다. 다시 시도해주세요.\\n만일 문제가 계속될 경우 고객센터(02-1234-5678)로 연락해주세요. 확인해주세요.";
+		String url="javascript:history.back()";
+		if(joinRes) {
+			msg="회원가입 되었습니다.";
+			url="/";
+		}
+		mav.addObject("msg", msg);
+		mav.addObject("url", url);
+		mav.setViewName("common/message");
 
 		return mav;
 	}
@@ -170,14 +176,23 @@ public class MemberController {
 
 	// 로그인 post
 	@RequestMapping(value = "/member/login", method = RequestMethod.POST)
-	public ModelAndView loginPost(@RequestParam Map<String, Object> map) {
+	public ModelAndView loginPost(HttpServletRequest request,@RequestParam Map<String, Object> map) {
 		ModelAndView mav = new ModelAndView();
 		boolean loginRes = this.memberService.loginMember(map);
 		String uId=(String) map.get("uId");
+		
 		System.out.println("로그인 loginRes="+loginRes+" uId="+uId);
-		mav.addObject("loginRes", loginRes);
-		mav.addObject("uId", uId);
-		mav.setViewName("redirect:/member/loginProc");
+		
+		HttpSession session =request.getSession();
+		String msg = "아이디 또는 비밀번호를 확인해주세요.", url="/member/login";
+		if(loginRes) {
+			session.setAttribute("uId_Session", uId);
+			msg="로그인되었습니다.";
+			url="/";
+		}
+		mav.addObject("msg", msg);
+		mav.addObject("url", url);
+		mav.setViewName("common/message");
 
 		return mav;
 	}
@@ -197,9 +212,15 @@ public class MemberController {
 		map.put("uHobby", new String(hobbyCode));
 		ModelAndView mav = new ModelAndView();
 		boolean editRes = this.memberService.updateMember(map);
-
-		mav.addObject("editRes", editRes);
-		mav.setViewName("redirect:/member/memberModProc");
+		String msg = "아이디 또는 회원정보 수정 중 문제가 발생했습니다. 다시 시도해주세요.\\n만일 문제가 계속될 경우 고객센터(02-1234-5678)로 연락해주세요. 확인해주세요.";
+		String url="javascript:history.back()";
+		if(editRes) {
+			msg="회원정보 수정 완료.";
+			url="/";
+		}
+		mav.addObject("msg", msg);
+		mav.addObject("url", url);
+		mav.setViewName("common/message");
 
 		return mav;
 	}
@@ -219,9 +240,15 @@ public class MemberController {
 		}
 		ModelAndView mav = new ModelAndView();
 		boolean quitRes = this.memberService.quitMember(uId);
-
-		mav.addObject("quitRes", quitRes);
-		mav.setViewName("redirect:/member/memberQuitProc");
+		String msg = "회원탈퇴 중 문제가 발생했습니다. 다시 시도해주세요.\\n만일 문제가 계속될 경우 고객센터(02-1234-5678)로 연락해주세요. 확인해주세요.";
+		String url="javascript:history.back()";
+		if(quitRes) {
+			msg="회원탈퇴 완료.";
+			url="/";
+		}
+		mav.addObject("msg", msg);
+		mav.addObject("url", url);
+		mav.setViewName("common/message");
 
 		return mav;
 	}
