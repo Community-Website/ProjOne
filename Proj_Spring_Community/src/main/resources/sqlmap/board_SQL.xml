@@ -64,7 +64,7 @@
 	<!-- 댓글 -->
 	<select id="selectMaxNum" parameterType="hashMap" resultType="int">
 		<![CDATA[
-				select max(num) from tblBoard
+				select count(num) from tblBoard
 		]]>	
 	</select>
 	

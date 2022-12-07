@@ -36,7 +36,7 @@ public class BoardDao {
 	
 	// 조회수 증가
 	public int upCount(int num) {
-		return this.sqlSessionTemplate.update("upCount", num);
+		return this.sqlSessionTemplate.update("bbs.upCount", num);
 	}
 	
 	// 게시글 수정하기

@@ -45,7 +45,7 @@ header#header {
 /*  템플릿 main#main nav#mainLNB 시작 */
 main#main>div#lnb>nav#mainLNB>ul#lnbMainMenu>li {
 	width: 140px;
-	border: 1px solid #000;
+	border: 0;
 }
 main#main>#lnb>#mainLNB a {
 	width: 140px;
