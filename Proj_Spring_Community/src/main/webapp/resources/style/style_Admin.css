@@ -1,0 +1,279 @@
+@charset "UTF-8";
+@import url("/resources/source/style_Reset.css");
+
+/* div#wrap 시작 */
+div#wrap {
+    width: 1000px;
+    padding: 4px;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    margin: 20px auto;
+}
+
+hr.sepLine {    /* Separate Line 경계선*/
+	border: none;
+	border-top: 1px solid #999;
+    margin: 12px 0;
+}
+/* div#wrap 끝 */
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////// member list 목록 시작 /admin/memberList.jsp ////////////////// */
+/*////////////////////////////////////////////////////////////////////*/
+
+div#wrap>main#main>div.memberList {
+	width: 860px;
+	padding: 20px;
+	/*border: 1px solid #f80;*/
+	margin: 0 auto;
+}
+
+
+div.memList div#pageInfo {
+	width: 100%;
+	padding: 2px 10px;
+	margin-bottom: 4px;
+	justify-content: space-between;
+}
+
+div.memList table#memberList {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+div.memList th {
+	padding: 8px 2px;
+	background-color: rgba(0, 136, 255, 0.1);
+}
+
+div.memList th:first-child {
+	width: 100px;
+}
+
+div.memList  th:nth-child(2), div.memList th:nth-child(3){
+	width: 120px;
+} 
+
+div.memList th:nth-child(4), div.memList th:last-child {
+	width: 150px;
+}
+
+div.memList td.spaceTd {
+	padding: 1px 0;
+	border: none !important;
+	background-color: rgba(136, 136, 136, 0.2);
+}
+
+div.memList tr.prnTr:hover {
+	background-color: rgba(0, 136, 255, 0.1);
+	cursor: pointer;
+}
+
+div.memList tr.prnTr:hover td {
+	color: #666;
+	font-weight: bold;
+}
+
+div.memList tr.prnTr>td {
+	text-align: center;
+	padding: 20px 2px 10px;
+	border-bottom: 1px solid #d2d2d2;
+}
+
+/* div.memList tr.prnTr>td.subjectTd {
+	text-align: left;
+} */
+
+
+
+/* 리스트 페이지 버튼 공통 스타일 시작 */
+div.memList button.listBtnStyle {
+	font-size: 16px;
+	font-weight: bold;
+	padding: 2px 6px;
+	cursor: pointer;
+}
+/* 리스트 페이지 버튼 공통 스타일 끝 */
+
+
+/* 리스트 /admin/memberList.jsp 글쓰기, 검색 영역 시작 */
+/* div.memList tr#listBtnArea td {
+	padding-top: 20px;
+}  */
+
+div.memList form#searchFrm {
+	justify-content: flex-end;
+	padding-top: 10px;
+	text-align: center;
+}  
+
+div.memList form#searchFrm>div {
+	margin: 4px;
+}
+
+div.memList #searchFrm select, 
+div.memList #searchFrm input {
+	font-size: 16px;
+	padding: 2px 6px;
+}
+
+/* 리스트 /admin/memberList.jsp 글쓰기, 검색 영역 끝 */
+
+
+
+/* 리스트 /admin/memberList.jsp  페이징 영역 시작 */
+
+div.memList tr#listPagingArea td {
+	padding-top: 20px;
+}
+
+div.memList td#pagingTd {	
+	text-align: center;
+}
+div.memList td#pagingTd span {
+	width: 30px;
+	height: 30px;
+	font-weight: 12px;
+	text-align: center;
+	line-height: 30px;
+	margin: 10px 2px;
+	display: inline-block;
+	cursor: pointer;
+}
+
+div.memList td#pagingTd span:hover {
+	color: #aaa;  /*   a  => 16 * 11 : 176*/
+}
+
+div.memList td#pagingTd span.nowPageNum {
+	font-size: 16px;
+	font-weight: bold;
+	background-color: rgba(136, 136, 136, 0.1);
+	cursor: default;
+}
+
+div.memList td#pagingTd span.moveBlockArea {
+	width: 30px;
+	height: 30px;
+	font-size: 12px;
+	margin: 0 6px;
+	display: inline-block;
+}
+/* 리스트 /admin/memberList.jsp  페이징 영역 끝 */
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////// member list 목록 끝 /admin/memberList.jsp ////////////////// */
+/*////////////////////////////////////////////////////////////////////*/
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*//////////// 회원 상세 정보 스타일 시작 /admin/memberDetail.jsp //////////// */
+/*////////////////////////////////////////////////////////////////////*/
+div#wrap>main#main>div.memDetail>form#regFrm {
+	width: 820px;
+	padding: 4px;
+	/*border: 1px solid #f80;*/
+	margin: 0 auto;
+}
+
+#wrap #regFrm>table#regFrmTbl {
+	width: 100%;
+	/*border: 1px solid #ccc;*/
+	border-collapse: collapse; 	
+} 
+
+#wrap #regFrm>#regFrmTbl>caption {
+	color: #f3f3f3;
+	font-size: 23px;
+	font-weight: bold;
+	padding: 13px;
+	border: 3px solid rgba(0, 127, 255, 0.12);
+	background-color: rgba(0, 127, 255, 0.5);
+}
+
+#wrap #regFrm>#regFrmTbl td {	
+	height: 48px;
+	padding: 10px 6px;
+	border-bottom: 1px solid #ccc;
+}
+#wrap #regFrm>#regFrmTbl td:first-child {
+	width: 180px;	
+	padding-left: 14px;
+
+} 
+#wrap #regFrm>#regFrmTbl td:nth-child(2) {
+	width: 450px;	
+} 
+
+#wrap #regFrm>#regFrmTbl td:last-child>span {
+	color: #888;
+	font-size: 13px;
+} 
+
+	/* 회원가입 버튼 공통 스타일 */
+#wrap #regFrm>#regFrmTbl button.frmBtn {
+	font-size: 15px;
+	padding: 4px 14px 5px;
+	
+	cursor: pointer;
+	transform: translateY(-1px);
+}	
+
+	/* 회원가입, 리셋, 로그인 버튼 가운데 정렬 */
+#wrap #regFrm>#regFrmTbl tr:last-child>td {
+	text-align: center;
+	padding-top: 30px;
+	border-bottom: none;
+}	
+	
+	
+	
+/*////////////////////////////////////////////////////////////////////*/
+/*//////////// 회원 상세 정보 스타일 끝 /admin/memberDetail.jsp //////////// */
+/*////////////////////////////////////////////////////////////////////*/
+
+
+
+
+
+
+
+
+
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/* header, mainLnb, footer 템플릿 스타일(style_Template.css) 시작 */
+/*////////////////////////////////////////////////////////////////////*/
+
+/* main#main div#contents 시작 */
+main#main>div#contents {
+	padding: 0 10px;
+	/*border: 1px solid #f80;*/
+	margin: 0 10px;
+	flex: 1;
+}
+
+main#main>div#contents h2#indexGuideMsg {
+	/* 인덱스 페이지에서만 적용됨 */
+	text-align: center;
+	margin-top: 50px;
+}
+
+/* main#main div#contents 끝 */
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/* header, mainLnb, footer 템플릿 스타일(style_Template.css) 끝 */
+/*////////////////////////////////////////////////////////////////////*/
+
+
+
+
+
+
+
+
+

@@ -7,10 +7,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import pack.spring.community.common.SearchVO;
-
 @Repository
 public class BoardDao {
+	
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
 

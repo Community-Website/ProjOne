@@ -3,8 +3,6 @@ package pack.spring.community.bbs;
 import java.util.List;
 import java.util.Map;
 
-import pack.spring.community.common.SearchVO;
-
 public interface BoardService {
 	// 게시판 글쓰기
 	int write(Map<String, Object> map);

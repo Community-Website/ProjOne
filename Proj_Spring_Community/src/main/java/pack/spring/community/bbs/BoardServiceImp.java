@@ -6,8 +6,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import pack.spring.community.common.SearchVO;
-
 @Service
 public class BoardServiceImp implements BoardService{
 	

@@ -27,17 +27,27 @@
 				<li class="lnbMainLi"><a href="#">menu4</a></li>
 				<li class="lnbMainLi"><a href="#">menu5</a></li>		
 			</c:if>
-			<c:if test="${!empty  uId_Session_MLTmp}">
-				<c:if test="${gnbParam eq 'myPage' }">
-					<li class="lnbMainLi"><a href="/member/memberMod?uId=${uId_Session_MLTmp}">회원정보수정</a></li>
-					<li class="lnbMainLi"><a href="/member/memberQuit">회원탈퇴</a></li>
+			<c:if test="${uId_Session_MLTmp eq 'admin'}">
+				<c:if test="${gnbParam eq 'adminPage' }">
+					<li class="lnbMainLi"><a href="/admin/memberList">회원관리</a></li>
+					<li class="lnbMainLi"><a href="#">게시판관리</a></li>
 					<li class="lnbMainLi"><a href="#">menu3</a></li>
 					<li class="lnbMainLi"><a href="#">menu4</a></li>
 					<li class="lnbMainLi"><a href="#">menu5</a></li>
 				</c:if>
-				<c:if test="${gnbParam eq 'adminPage' }">
-					<li class="lnbMainLi"><a href="#">공지게시판</a></li>
-					<li class="lnbMainLi"><a href="#">회원관리</a></li>
+				<c:if test="${gnbParam ne 'adminPage' and  gnbParam ne 'adminPage'}">
+					<li class="lnbMainLi"><a href="#">공지사항</a></li>
+					<li class="lnbMainLi"><a href="#">menu2</a></li>
+					<li class="lnbMainLi"><a href="#">menu3</a></li>
+					<li class="lnbMainLi"><a href="#">menu4</a></li>
+					<li class="lnbMainLi"><a href="#">menu5</a></li>
+				</c:if>
+			</c:if>
+			<c:if test="${!empty  uId_Session_MLTmp and uId_Session_MLTmp ne 'admin'}">
+				<c:if test="${gnbParam eq 'myPage' }">
+					<li class="lnbMainLi"><a
+						href="/member/memberMod?uId=${uId_Session_MLTmp}">회원정보수정</a></li>
+					<li class="lnbMainLi"><a href="/member/memberQuit">회원탈퇴</a></li>
 					<li class="lnbMainLi"><a href="#">menu3</a></li>
 					<li class="lnbMainLi"><a href="#">menu4</a></li>
 					<li class="lnbMainLi"><a href="#">menu5</a></li>
