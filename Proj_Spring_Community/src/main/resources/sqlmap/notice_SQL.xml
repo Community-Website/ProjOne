@@ -3,7 +3,7 @@
 
 <mapper namespace="noticeBBS">
 
-	<!-- 글 작성 -->
+	<!-- 공지사항 작성 -->
 	<insert id="insert" parameterType="hashMap" useGeneratedKeys="true" keyProperty="num">
 		<![CDATA[
 			insert into noticeBoard (uId, uName, subject, content, pos, ref, depth, 
@@ -13,10 +13,60 @@
 		]]>
 	</insert>
 	
-	<!-- 게시글 수 -->
+	<!-- 공지사항 게시글 수 -->
 	<select id="selectMaxNum" parameterType="hashMap" resultType="int">
 		<![CDATA[
 				select max(num) from noticeBoard
 		]]>	
+	</select> 
+	
+	<!-- 공지사항 목록 -->
+	<select id="selectAll" parameterType="hashMap" resultType="hashMap">
+		<![CDATA[
+			select * from noticeBoard 
+		]]>
+			<if test='keyWord != null and keyWord != "" '>
+				where ${keyField } like '%${keyWord}%'
+ 			</if>
+		<![CDATA[
+				order by ref desc, pos asc
+		]]>
+	</select>
+	<!--공지사항 조회수 증가 -->
+	<update id="upCount" parameterType="int">
+		<![CDATA[
+			update noticeBoard 
+			set readCnt = readCnt+1
+			where num = #{num}
+		]]>
+	</update>
+	
+	<!-- 공지사항 상세 정보 -->
+	<select id="selectDetail" parameterType="int" resultType="hashMap">
+		<![CDATA[
+			select * from noticeBoard where num = #{num}
+		]]>
+	</select>
+	<!-- 공지사항 코멘트 수 -->
+	<select id="selectReplyMaxNum" parameterType="hashMap" resultType="int">
+		<![CDATA[
+				select max(num) from noticeReply
+		]]>	
+	</select> 
+	
+	<!-- 공지사항 코멘트 작성 -->
+	<insert id="insertReply" parameterType="hashMap" useGeneratedKeys="true" >
+		<![CDATA[
+			insert into noticeReply (uId, uName, content, pos, ref, depth, regTM, ip )
+			values (#{uId}, #{uName}, #{content}, 0, #{ref}, 0, now(), #{ip})
+		]]>
+	</insert>
+	<!-- 공지사항 코멘트 목록 -->
+	<select id="selectReplyAll" parameterType="int" resultType="hashMap">
+		<![CDATA[
+			select * from noticeReply 
+			where ref= #{ref}
+			order by ref desc, pos asc
+		]]>
 	</select>
 </mapper>
