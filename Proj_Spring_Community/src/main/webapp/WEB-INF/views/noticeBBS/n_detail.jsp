@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+
 <!--   errorPage="/err/errorProc.jsp" -->
 
 <c:set var="uId_Session" value="${sessionScope.uId_Session }"/>
@@ -15,7 +17,7 @@
 	<title>글내용 보기</title>
 	<link rel="stylesheet" href="/resources/style/style_Common.css">
 	<link rel="stylesheet" href="/resources/style/style_Template.css">
-	<link rel="stylesheet" href="/resources/style/style_BBS.css">
+	<link rel="stylesheet" href="/resources/style/style_noticeBBS.css">
 	<link rel="stylesheet" href="/resources/source/style_Reset.css">
 	<script src="/resources/source/jquery-3.6.0.min.js"></script>
 	<script src="/resources/script/script_Notice.js"></script>
@@ -131,35 +133,23 @@
 				<input type="hidden" id="pKeyWord" value="${keyWord}">
 				<!-- 검색어전송 끝 -->
 				<c:if test="${!empty list}">
-					<table id="replyList">
-						<thead>
-							<tr>
-								<th>이름</th>
-								<th>제목</th>
-								<th>날짜</th>
-								<th>조회수</th>
-							</tr>
-							<tr>
-								<td colspan="5" class="spaceTd"></td>
-							</tr>
-						</thead>
-						<tbody>
-							
-							<c:forEach var="reply" items="${list }">
-								
-									<tr class="prnTr">
-										<td>${reply.uName }</td>
-										<td class="contentTd">
-											${reply.content }
-										</td>
-										<td><fmt:parseDate value="${reply.regTM}"
-												pattern="yyyy-MM-dd'T'HH:mm" var="parsedRegTm" type="both" />
-											<fmt:formatDate value="${parsedRegTm}" pattern="yyyy-MM-dd" />
-										</td>
-									</tr>
-							</c:forEach>
-						</tbody>
-					</table>
+					<p id="replyTitle">댓글 <span style="font-weight:normal;font-size:16px;vertical-align:center;">${fn:length(list) }</span></p>
+					<br>		
+					<c:forEach var="reply" items="${list }">
+						<div id="replyDiv">
+							<ul id="replyUl">
+								<li id="reName">${reply.uName }</li>
+								<li id="reContent">${reply.content }</li>
+								<li id="reDate">
+									<fmt:parseDate value="${reply.regTM}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedRegTm" type="both" />
+									<fmt:formatDate value="${parsedRegTm}" pattern="yyyy-MM-dd HH:mm" />
+									<a href="#" role="button" id="replyUpdate">수정 </a>
+									<a href="#" role="button" id="replydelete">삭제 </a>
+								</li>
+							</ul>
+						</div>
+						<hr>
+					</c:forEach>	
 				</c:if>
 				<!--  게시글 상세보기 페이지 내용 출력 끝 -->
 				<br>
