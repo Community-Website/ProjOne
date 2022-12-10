@@ -19,6 +19,11 @@ public interface NoticeService {
 	// 공지사항 글 상세 보기
 	Map<String, Object> detail(int num);
 
+	//공지사항 수정
+	int updateNotice(Map<String, Object> map);
+	
+	// 공지사항 삭제
+	int deleteNotice(int num);
 	// 공지사항 코멘트 수
 	int getReplyMaxNum(Map<String, Object> map);
 

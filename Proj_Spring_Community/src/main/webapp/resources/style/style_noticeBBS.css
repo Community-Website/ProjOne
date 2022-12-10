@@ -3,14 +3,12 @@
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////// BBS list 목록 시작 /bbs/list.jsp ////////////////// */
 /*////////////////////////////////////////////////////////////////////*/
-
 div#wrap>main#main>div.bbsList {
 	width: 860px;
 	padding: 20px;
 	/*border: 1px solid #f80;*/
 	margin: 0 auto;
 }
-
 
 div.bbs div#pageInfo {
 	width: 100%;
@@ -67,8 +65,6 @@ div.bbsList tr.prnTr>td.subjectTd {
 	text-align: left;
 }
 
-
-
 /* 리스트 페이지 버튼 공통 스타일 시작 */
 div.bbsList button.listBtnStyle {
 	font-size: 16px;
@@ -77,7 +73,6 @@ div.bbsList button.listBtnStyle {
 	cursor: pointer;
 }
 /* 리스트 페이지 버튼 공통 스타일 끝 */
-
 
 /* 리스트 /bbs/list.jsp 글쓰기, 검색 영역 시작 */
 div.bbsList tr#listBtnArea td {
@@ -92,25 +87,22 @@ div.bbsList form#searchFrm>div {
 	margin: 4px;
 }
 
-div.bbsList #searchFrm select, 
-div.bbsList #searchFrm input {
+div.bbsList #searchFrm select, div.bbsList #searchFrm input {
 	font-size: 16px;
 	padding: 2px 6px;
 }
 
 /* 리스트 /bbs/list.jsp 글쓰기, 검색 영역 끝 */
 
-
-
 /* 리스트 /bbs/list.jsp  페이징 영역 시작 */
-
 div.bbsList tr#listPagingArea td {
 	padding-top: 20px;
 }
 
-div.bbsList td#pagingTd {	
+div.bbsList td#pagingTd {
 	text-align: center;
 }
+
 div.bbsList td#pagingTd span {
 	width: 30px;
 	height: 30px;
@@ -123,7 +115,7 @@ div.bbsList td#pagingTd span {
 }
 
 div.bbsList td#pagingTd span:hover {
-	color: #aaa;  /*   a  => 16 * 11 : 176*/
+	color: #aaa; /*   a  => 16 * 11 : 176*/
 }
 
 div.bbsList td#pagingTd span.nowPageNum {
@@ -142,23 +134,16 @@ div.bbsList td#pagingTd span.moveBlockArea {
 }
 /* 리스트 /bbs/list.jsp  페이징 영역 끝 */
 
-
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////// BBS list 목록 끝 /bbs/list.jsp ////////////////// */
 /*////////////////////////////////////////////////////////////////////*/
 
-
-
-
-
-
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////// BBS 글쓰기 시작 /bbs/write.jsp ////////////////// */
 /*////////////////////////////////////////////////////////////////////*/
-
 main#main>div.bbsWrite h2 {
 	text-align: center;
-	padding: 10px 0;	
+	padding: 10px 0;
 	margin-bottom: 20px;
 	background-color: rgba(0, 136, 255, 0.2);
 }
@@ -171,16 +156,17 @@ main#main>div.bbsWrite h2 {
 	padding: 10px;
 	/*border: 1px solid #000;*/
 }
+
 #main>.bbsWrite table tbody td:first-child {
 	width: 100px;
 	font-weight: bold;
 	text-align: right;
 }
 
-
 #main>.bbsWrite table tfoot td hr {
 	border: 2px solid #ccc;
 }
+
 #main>.bbsWrite table tfoot td {
 	width: 100%;
 	text-align: center;
@@ -188,23 +174,21 @@ main#main>div.bbsWrite h2 {
 	/*border: 1px solid #aaa;*/
 }
 
-
 #main>.bbsWrite td.req::after {
 	content: " *";
 	color: #d74;
 	font-weight: bold;
 }
+
 #main>.bbsWrite input#subject {
 	width: 579px;
 }
 
-
 ::-webkit-file-upload-button {
 	font-weight: bold;
 	padding: 4px 10px;
-	cursor:pointer; 
+	cursor: pointer;
 }
-
 
 #main>.bbsWrite textarea#content {
 	height: 140px;
@@ -214,14 +198,13 @@ main#main>div.bbsWrite h2 {
 	margin: 0 20px;
 	cursor: pointer;
 }
+
 #main>.bbsWrite label span {
 	font-size: 18px;
 	font-weight: bold;
 }
 
-
-#main>.bbsWrite input,
-#main>.bbsWrite textarea  {
+#main>.bbsWrite input, #main>.bbsWrite textarea {
 	font-size: 17px;
 	padding: 4px 10px;
 }
@@ -231,16 +214,15 @@ main#main>div.bbsWrite h2 {
 	padding-top: 30px;
 }
 
-
 #main>.bbsWrite span.spanFile {
 	padding: 10px;
 }
-
 
 #main>.bbsWrite label {
 	margin: 0 20px;
 	cursor: pointer;
 }
+
 #main>.bbsWrite label span {
 	font-size: 18px;
 	font-weight: bold;
@@ -253,18 +235,13 @@ main#main>div.bbsWrite h2 {
 	cursor: pointer;
 }
 
-
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////// BBS 글쓰기 끝 /bbs/write.jsp ////////////////// */
 /*////////////////////////////////////////////////////////////////////*/
 
-
-
-
 /*////////////////////////////////////////////////////////////////////*/
 /*///////////// BBS  게시글 상세보기 페이지 시작 /bbs/read.jsp ///////////// */
 /*////////////////////////////////////////////////////////////////////*/
-
 main#main>div.bbsRead h2 {
 	text-align: center;
 	padding: 10px;
@@ -276,31 +253,30 @@ main#main>div.bbsRead h2 {
 	width: 100%;
 	border-collapse: collapse;
 }
-#main>.bbsRead tbody#readTblBody th,
-#main>.bbsRead tbody#readTblBody td {
-	padding: 14px 6px;	
+
+#main>.bbsRead tbody#readTblBody th, #main>.bbsRead tbody#readTblBody td
+	{
+	padding: 14px 6px;
 	border-bottom: 1px solid #eee;
 }
 
-
-                  /*다운로드 시작*/
- #main>.bbsRead #readTblBody span#downloadFile:hover {
- 	color: #555; 	
- 	text-decoration: underline;
- 	cursor: pointer;
- 	display: inline-block;
- 	transform: translateY(-1px);
- }
-                  /*다운로드 끝*/
-
-
-#main>.bbsRead tbody#readTblBody th:nth-child(2n+1),
-#main>.bbsRead tbody#readTblBody td:nth-child(2n+1) {
+/*다운로드 시작*/
+#main>.bbsRead #readTblBody span#downloadFile:hover {
+	color: #555;
+	text-decoration: underline;
+	cursor: pointer;
+	display: inline-block;
+	transform: translateY(-1px);
+}
+/*다운로드 끝*/
+#main>.bbsRead tbody#readTblBody th:nth-child(2n+1), #main>.bbsRead tbody#readTblBody td:nth-child(2n+1)
+	{
 	width: 120px;
 	font-weight: bold;
 	text-align: center;
 	background-color: rgba(220, 220, 220, 0.2);
-} 
+}
+
 #main>.bbsRead tbody#readTblBody td#readContentTd {
 	text-align: left;
 	vertical-align: top;
@@ -308,10 +284,11 @@ main#main>div.bbsRead h2 {
 	padding: 20px;
 	background-color: #fff;
 }
+
 #main>.bbsRead tbody#readTblBody textarea#txtArea {
 	height: 160px;
-	border: none;   /* 테두리 선 제거*/
-	outline: none;   /* 클릭했을 때 나타나는 아웃라인 선 제거*/
+	border: none; /* 테두리 선 제거*/
+	outline: none; /* 클릭했을 때 나타나는 아웃라인 선 제거*/
 }
 
 #main>.bbsRead td#footTopSpace {
@@ -321,18 +298,22 @@ main#main>div.bbsRead h2 {
 #main>.bbsRead tfoot#readTblFoot td#articleInfoTd {
 	text-align: right;
 }
+
 #main>.bbsRead tfoot#readTblFoot td#hrTd {
 	height: 30px;
 	vertical-align: top;
 	padding-top: 10px;
 }
+
 #main>.bbsRead tfoot#readTblFoot hr {
 	border: 2px solid #eee;
 	border-top-color: #ddd;
 }
+
 #main>.bbsRead tfoot#readTblFoot td#btnAreaTd {
 	text-align: center;
 }
+
 #main>.bbsRead tfoot#readTblFoot td#btnAreaTd button {
 	width: 110px;
 	font-size: 16px;
@@ -341,19 +322,13 @@ main#main>div.bbsRead h2 {
 	cursor: pointer;
 }
 
-
 /*////////////////////////////////////////////////////////////////////*/
 /*///////////// BBS  게시글 상세보기 페이지 끝 /bbs/read.jsp ///////////// */
 /*////////////////////////////////////////////////////////////////////*/
 
-
-
-
-
 /*////////////////////////////////////////////////////////////////////*/
 /*///////////// BBS 게시글 수정 페이지 시작 /bbs/modify.jsp ///////////// */
 /*////////////////////////////////////////////////////////////////////*/
-
 main#main>div.mod h2 {
 	text-align: center;
 	padding: 10px;
@@ -361,25 +336,23 @@ main#main>div.mod h2 {
 	background-color: rgba(0, 136, 255, 0.1);
 }
 
-
 #main>.mod table#modTbl {
 	width: 100%;
 	border-collapse: collapse;
 }
-#main>.mod tbody#modTblBody th,
-#main>.mod tbody#modTblBody td {
-	padding: 14px 6px;	
+
+#main>.mod tbody#modTblBody th, #main>.mod tbody#modTblBody td {
+	padding: 14px 6px;
 	border-bottom: 1px solid #eee;
 }
 
-
-#main>.mod tbody#modTblBody th:nth-child(1),
-#main>.mod tbody#modTblBody td:nth-child(1) {
+#main>.mod tbody#modTblBody th:nth-child(1), #main>.mod tbody#modTblBody td:nth-child(1)
+	{
 	width: 120px;
 	font-weight: bold;
 	text-align: center;
 	background-color: rgba(220, 220, 220, 0.2);
-} 
+}
 
 #main>.mod td.req::after {
 	content: " *";
@@ -405,13 +378,16 @@ main#main>div.mod h2 {
 	vertical-align: top;
 	padding-top: 10px;
 }
+
 #main>.mod tfoot hr {
 	border: 2px solid #eee;
 	border-top-color: #ddd;
 }
+
 #main>.mod tfoot td#btnAreaTd {
 	text-align: center;
 }
+
 #main>.mod tfoot td#btnAreaTd button {
 	width: 110px;
 	font-size: 16px;
@@ -424,13 +400,9 @@ main#main>div.mod h2 {
 /*///////////// BBS 게시글 수정 페이지 끝 /bbs/modify.jsp ///////////// */
 /*////////////////////////////////////////////////////////////////////*/
 
-
-
-
 /*////////////////////////////////////////////////////////////////////*/
 /*///////////// BBS 게시글 답변글 페이지 시작 /bbs/reply.jsp ///////////// */
 /*////////////////////////////////////////////////////////////////////*/
-
 main#main>div.reply h2 {
 	text-align: center;
 	padding: 10px;
@@ -438,25 +410,23 @@ main#main>div.reply h2 {
 	background-color: rgba(0, 136, 255, 0.1);
 }
 
-
 #main>.reply table#replyTbl {
 	width: 100%;
 	border-collapse: collapse;
 }
-#main>.reply tbody#replyTblBody th,
-#main>.reply tbody#replyTblBody td {
-	padding: 14px 6px;	
+
+#main>.reply tbody#replyTblBody th, #main>.reply tbody#replyTblBody td {
+	padding: 14px 6px;
 	border-bottom: 1px solid #eee;
 }
 
-
-#main>.reply tbody#replyTblBody th:nth-child(1),
-#main>.reply tbody#replyTblBody td:nth-child(1) {
+#main>.reply tbody#replyTblBody th:nth-child(1), #main>.reply tbody#replyTblBody td:nth-child(1)
+	{
 	width: 120px;
 	font-weight: bold;
 	text-align: center;
 	background-color: rgba(220, 220, 220, 0.2);
-} 
+}
 
 #main>.reply td.req::after {
 	content: " *";
@@ -468,7 +438,7 @@ main#main>div.reply h2 {
 	padding: 5px 10px;
 }
 
-#main>.reply tbody#replyTblBody textarea#txtArea{
+#main>.reply tbody#replyTblBody textarea#txtArea {
 	height: 160px;
 	padding: 10px;
 }
@@ -476,10 +446,10 @@ main#main>div.reply h2 {
 #main>.reply tbody#replyTblBody textarea#ori_TxtArea {
 	height: 160px;
 	padding: 10px;
-	border: 1px solid #eee !important;	
-	outline: none;	
-	resize: none;   /* textarea 입력영역 크기고정 */
-} 
+	border: 1px solid #eee !important;
+	outline: none;
+	resize: none; /* textarea 입력영역 크기고정 */
+}
 
 #main>.reply span.ori_Txt {
 	font-size: 13px;
@@ -490,7 +460,7 @@ main#main>div.reply h2 {
 	content: "•";
 }
 
-#main>.reply span#ori_SpanTxtArea {	
+#main>.reply span#ori_SpanTxtArea {
 	margin: 10px 0 4px 6px;
 	display: block;
 }
@@ -504,13 +474,16 @@ main#main>div.reply h2 {
 	vertical-align: top;
 	padding-top: 10px;
 }
+
 #main>.reply tfoot hr {
 	border: 2px solid #eee;
 	border-top-color: #ddd;
 }
+
 #main>.reply tfoot td#btnAreaTd {
 	text-align: center;
 }
+
 #main>.reply tfoot td#btnAreaTd button {
 	width: 110px;
 	font-size: 16px;
@@ -525,73 +498,81 @@ main#main>div.reply h2 {
 
 /*공지사항 댓글*/
 form#replyFrm {
-    border: 2px solid #eeeeee;
-    border-radius: 10px;
-    padding: 10px 20px;
+	border: 2px solid #eeeeee;
+	border-radius: 10px;
+	padding: 10px 20px;
 }
 
 table#replyTbl {
-    width: 100%;
+	width: 100%;
 }
-
 
 textarea#content {
-    width: 100%;
-    border: 0px;
-    border-radius: 5px;
-    padding: 4px 0px;
-    margin=top: 5px;
+	width: 100%;
+	border: 0px;
+	border-radius: 5px;
+	padding: 4px;
+	margin-top: 5px;
+	font-size: 16px;
 }
-textarea#content:placeholder {
-	color:#858585;
+ textarea::placeholder {
+        color: #858585;
+	font-size: 12px;
 }
 
 td#replyButton {
-    text-align: right;
+	text-align: right;
 }
 
 table#replyTbl>tfoot button#replyBtn {
-    border: 0px;
-    background: none;
-    font-weight: bold;
-    color: #858585;
+	border: 0px;
+	background: none;
+	font-weight: bold;
+	color: #858585;
 }
+
 table#replyTbl>tfoot button#replyBtn:hover {
-    border: 0px;
-    background: none;
-    font-weight: bold;
-    color: black;
+	border: 0px;
+	background: none;
+	font-weight: bold;
+	color: black;
 	cursor: pointer;
 }
 
 td#replyUName {
-    color: #898989;
+	color: #505050;
 }
+
 div#replyDiv {
-    padding: 5px;
+	padding: 5px;
 }
 
 li#reName {
-    font-weight: bold;
-    color: #505050;
-    margin: 3px 0px;
+	font-weight: bold;
+	color: #505050;
+	margin: 3px 0px;
+	float: left;
 }
 
 li#reContent {
-    padding: 10px 3px;
+	padding: 10px 3px;
 }
 
 li#reDate {
-    font-size: 13px;
-    color: #b1b1b1;
+	font-size: 13px;
+	color: #b1b1b1;
 }
 
 p#replyTitle {
-    font-weight: bold;
-    font-size: 20px;
-    padding: 8px;
+	font-weight: bold;
+	font-size: 20px;
+	padding: 8px;
 }
 
 hr {
-    border: 1px solid #e1e1e1;
+	border: 1px solid #e1e1e1;
+}
+
+li#reMenu {
+	text-align: right;
 }

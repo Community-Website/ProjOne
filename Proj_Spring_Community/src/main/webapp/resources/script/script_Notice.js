@@ -174,6 +174,10 @@ $(function(){
 		
 	});
 	
+	$("#backBtn").click(function(){
+		location.href = "javascript:history.back()";
+	});
+	
 });
 	
 	

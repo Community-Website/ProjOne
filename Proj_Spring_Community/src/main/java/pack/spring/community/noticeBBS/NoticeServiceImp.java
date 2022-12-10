@@ -41,6 +41,18 @@ public class NoticeServiceImp implements NoticeService {
 		return this.noticeDAO.detail(num);
 	}
 
+	// 공지사항 수정
+	@Override
+	public int updateNotice(Map<String, Object> map) {
+		return this.noticeDAO.updateNotice(map);
+	}
+
+	// 공지사항 삭제
+	@Override
+	public int deleteNotice(int num) {
+		return this.noticeDAO.deleteNotice(num);
+	}
+
 	// 공지사항 코멘트 수
 	@Override
 	public int getReplyMaxNum(Map<String, Object> map) {

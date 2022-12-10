@@ -47,6 +47,24 @@
 			select * from noticeBoard where num = #{num}
 		]]>
 	</select>
+	
+	<!--공지사항 수정 -->
+	<update id="updateNotice" parameterType="hashMap">
+		<![CDATA[
+			update noticeBoard 
+			set subject = #{subject}, content = #{content}
+			where num = #{num}
+		]]>
+	</update>
+	
+	<!-- 공지사항 글 삭제 -->
+	<delete id="deleteNotice" parameterType="int">
+		<![CDATA[
+			delete from noticeBoard 
+			where num = #{num}
+		]]>
+	</delete>
+	
 	<!-- 공지사항 코멘트 수 -->
 	<select id="selectReplyMaxNum" parameterType="hashMap" resultType="int">
 		<![CDATA[
@@ -69,4 +87,5 @@
 			order by ref desc, pos asc
 		]]>
 	</select>
+	
 </mapper>

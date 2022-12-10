@@ -89,7 +89,7 @@
 						<c:set var="board" value="${list[curPos]}" />		
 						<c:set var="curPos" value="${curPos+1 }"/>
 						<c:set var="num" value="${num-1 }"/>		  		
-					<tr class="prnTr" onclick="detail('${board.num }', '${nowBlock}')">	
+					<tr class="prnTr" onclick="detail('${board.num }', '${pagingInfo.currentPage}')">	
 						<c:if test="${board.depth eq 0}">
 							<td>${board.num }</td>
 						</c:if>
