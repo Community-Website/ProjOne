@@ -53,7 +53,13 @@ public class NoticeServiceImp implements NoticeService {
 		return this.noticeDAO.deleteNotice(num);
 	}
 
-	// 공지사항 코멘트 수
+	// 공지사항 삭제되면 코멘트도 삭제
+	@Override
+	public int deleteReOfNotice(int ref) {
+		return this.noticeDAO.deleteReOfNotice(ref);
+	}
+
+	// 공지사항 코멘트 수(maxNum)
 	@Override
 	public int getReplyMaxNum(Map<String, Object> map) {
 		return this.noticeDAO.getReplyMaxNum(map);
@@ -69,6 +75,30 @@ public class NoticeServiceImp implements NoticeService {
 	@Override
 	public List<Map<String, Object>> noticeReplyList(int ref) {
 		return this.noticeDAO.noticeReplyList(ref);
+	}
+
+	// 공지사항 대댓글쓰기
+	@Override
+	public int insertReplyReply(Map<String, Object> map) {
+		return this.noticeDAO.insertReplyReply(map);
+	}
+
+	// 공지사항 댓글끼어들기
+	@Override
+	public int replyUp(Map<String, Object> map) {
+		return this.noticeDAO.replyUp(map);
+	}
+
+	// 공지사항 댓글 삭제
+	@Override
+	public int deleteReply(int num) {
+		return this.noticeDAO.deleteReply(num);
+	}
+
+	// 공지사항 댓글 수정
+	@Override
+	public int updateReply(Map<String, Object> map) {
+		return this.noticeDAO.updateReply(map);
 	}
 
 }

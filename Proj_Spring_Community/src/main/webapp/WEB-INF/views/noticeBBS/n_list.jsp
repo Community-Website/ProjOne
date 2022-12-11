@@ -122,14 +122,11 @@
 			</c:if>	
 					<tr id="listBtnArea">
 						<td colspan="2">
-						<c:if test="${empty uId_Session}">
-							<button type="button" id="loginAlertBtn" class="listBtnStyle">글쓰기</button>			
-						</c:if>
 						<c:if test="${!empty uId_Session}">
-							
+							<c:if test="${uId_Session=='admin'}">
 								<button type="button" id="writeBtn" class="listBtnStyle">글쓰기</button>
 								<input type="hidden" id="uId" value="${uId_Session}" >
-							
+							</c:if>
 						</c:if>
 						</td>
 						

@@ -21,7 +21,7 @@
 	<nav id="mainLNB">
 		<ul id="lnbMainMenu">
 			<c:if test="${empty  uId_Session_MLTmp}">
-				<li class="lnbMainLi"><a href="#">공지사항</a></li>
+				<li class="lnbMainLi"><a href="/noticeBBS/n_list">공지사항</a></li>
 				<li class="lnbMainLi"><a href="#">menu2</a></li>
 				<li class="lnbMainLi"><a href="#">menu3</a></li>
 				<li class="lnbMainLi"><a href="#">menu4</a></li>
@@ -36,7 +36,7 @@
 					<li class="lnbMainLi"><a href="#">menu5</a></li>
 				</c:if>
 				<c:if test="${gnbParam ne 'adminPage' and  gnbParam ne 'adminPage'}">
-					<li class="lnbMainLi"><a href="#">공지사항</a></li>
+					<li class="lnbMainLi"><a href="/noticeBBS/n_list">공지사항</a></li>
 					<li class="lnbMainLi"><a href="#">menu2</a></li>
 					<li class="lnbMainLi"><a href="#">menu3</a></li>
 					<li class="lnbMainLi"><a href="#">menu4</a></li>
@@ -53,7 +53,7 @@
 					<li class="lnbMainLi"><a href="#">menu5</a></li>
 				</c:if>
 				<c:if test="${gnbParam ne 'myPage' and  gnbParam ne 'myPage'}">
-					<li class="lnbMainLi"><a href="#">공지사항</a></li>
+					<li class="lnbMainLi"><a href="/noticeBBS/n_list">공지사항</a></li>
 					<li class="lnbMainLi"><a href="#">menu2</a></li>
 					<li class="lnbMainLi"><a href="#">menu3</a></li>
 					<li class="lnbMainLi"><a href="#">menu4</a></li>

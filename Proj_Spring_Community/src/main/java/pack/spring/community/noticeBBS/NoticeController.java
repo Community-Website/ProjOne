@@ -85,10 +85,10 @@ public class NoticeController {
 		// 출력할 데이터의 개수 = 데이터 1개는 가로줄 1개
 
 		// 게시판 검색 관련소스
-		if(keyField==null|| keyField.isEmpty()) {
+		if (keyField == null || keyField.isEmpty()) {
 			keyField = ""; // DB의 컬럼명
 		}
-		if(keyWord==null|| keyWord.isEmpty()) {
+		if (keyWord == null || keyWord.isEmpty()) {
 			keyWord = ""; // DB의 검색어
 		}
 
@@ -143,6 +143,7 @@ public class NoticeController {
 		HttpSession session = request.getSession();
 		String uId = (String) session.getAttribute("uId_Session");
 		String uName = this.memberService.getMemberName(uId);
+
 		// 글 조회수 증가
 		int cnt = this.noticeService.upCount(num);
 
@@ -183,18 +184,21 @@ public class NoticeController {
 			@RequestParam(value = "keyField", required = false) String keyField,
 			@RequestParam(value = "keyWord", required = false) String keyWord) {
 		ModelAndView mav = new ModelAndView();
-
 		int cnt = this.noticeService.deleteNotice(num);
+
+		int ref = num;
+		int reCnt = this.noticeService.deleteReOfNotice(ref);
+		System.out.println("공지사항 댓글 삭제 reCnt=" + reCnt);
 
 		String msg = "", url = "";
 		if (cnt > 0) {
 			// mav.setViewName("redirect:/bbs/detail?num="+num);
 			msg = "삭제되었습니다!";
-			url = "/noticeBBS/n_list?keyField="+keyField+"&keyWord="+keyWord;
+			url = "/noticeBBS/n_list?keyField=" + keyField + "&keyWord=" + keyWord;
 		} else {
 			// mav.setViewName("redirect:/bbs/list");
 			msg = "삭제실패!";
-			url = "/noticeBBS/n_detail?num=" + num+"&keyField="+keyField+"&keyWord="+keyWord;
+			url = "/noticeBBS/n_detail?num=" + num + "&keyField=" + keyField + "&keyWord=" + keyWord;
 		}
 
 		mav.addObject("msg", msg);
@@ -204,10 +208,32 @@ public class NoticeController {
 		return mav;
 	}
 
+	// 코멘트 삭제
+	@RequestMapping(value = "/noticeBBS/n_deleteReply", method = RequestMethod.GET)
+	public ModelAndView n_deleteReply(@RequestParam int num,@RequestParam int ref) {
+		int cnt = this.noticeService.deleteReply(num);
+
+		ModelAndView mav = new ModelAndView();
+		String msg = "", url = "";
+		if (cnt > 0) {
+			msg = "삭제되었습니다!";
+			url = "/noticeBBS/n_detail?num=" + ref;
+		} else {
+			msg = "삭제실패!";
+			url = "javascript:history.back()";
+		}
+
+		mav.addObject("msg", msg);
+		mav.addObject("url", url);
+
+		mav.setViewName("/common/message");
+
+		return mav;
+	}
 	///////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////// P O S T 방 식 ////////////////////////////////// 
+	////////////////////////////////// P O S T 방 식 //////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////
-	
+
 	// 공지사항 쓰기 post
 	@RequestMapping(value = "/noticeBBS/n_write", method = RequestMethod.POST)
 	public ModelAndView writePost(HttpServletRequest request, @RequestParam Map<String, Object> map)
@@ -282,7 +308,7 @@ public class NoticeController {
 		String msg = "DB처리중 오류가 발생했습니다.\n문제가 계속되면 관리자에게 연락바랍니다.", url = "javascript:history.back()";
 		if (cnt > 0) {
 			msg = "공지사항 수정하였습니다.";
-			url = "/noticeBBS/n_detail?num=" + num+"&keyField="+keyField+"&keyWord="+keyWord;
+			url = "/noticeBBS/n_detail?num=" + num + "&keyField=" + keyField + "&keyWord=" + keyWord;
 		}
 
 		mav.addObject("msg", msg);
@@ -296,10 +322,58 @@ public class NoticeController {
 	public ModelAndView replyPost(@RequestParam Map<String, Object> map) throws IOException {
 		int num = Integer.parseInt((String) map.get("num"));
 		int ref = num;
+		int pos=this.noticeService.getReplyMaxNum(map)+1;
 		map.put("ref", ref);
+		map.put("pos", pos);
 		int cnt = this.noticeService.insertReply(map);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/noticeBBS/n_detail?num=" + num);
+		return mav;
+	}
+
+	// 상세보기 코멘트의코멘트(대댓글) 달기
+	@RequestMapping(value = "/noticeBBS/n_reply2", method = RequestMethod.POST)
+	public ModelAndView reply2Post(@RequestParam Map<String, Object> map) throws IOException {
+		ModelAndView mav = new ModelAndView();
+		int num = Integer.parseInt((String) map.get("num"));
+		int ref = num;
+		map.put("ref", ref);
+		System.out.println("코멘트의코멘트(대댓글) 달기 pos="+map.get("pos"));
+		//int replyUp = this.noticeService.replyUp(map);
+		int cnt = this.noticeService.insertReplyReply(map);
+
+		String msg = "", url = "";
+		if (cnt > 0) {
+			msg = "댓글이 등록되었습니다!";
+			url = "/noticeBBS/n_detail?num="+ num;
+		} else {
+			msg = "댓글 등록 실패!";
+			url = "javascript:history.back()";
+		}
+		mav.addObject("url", url);
+		mav.addObject("msg", msg);
+		mav.setViewName("/common/message");
+
+		return mav;
+	}
+	// 상세보기 코멘트 수정
+	@RequestMapping(value = "/noticeBBS/n_updateReply", method = RequestMethod.POST)
+	public ModelAndView updateReply(@RequestParam Map<String, Object> map) throws IOException {
+		ModelAndView mav = new ModelAndView();
+		int cnt = this.noticeService.updateReply(map);
+		int num=Integer.parseInt((String)map.get("num"));
+		String msg = "", url = "";
+		if (cnt > 0) {
+			msg = "댓글이 수정되었습니다!";
+			url = "/noticeBBS/n_detail?num="+ num;
+		} else {
+			msg = "댓글 수정 실패!";
+			url = "javascript:history.back()";
+		}
+		mav.addObject("url", url);
+		mav.addObject("msg", msg);
+		mav.setViewName("/common/message");
+		
 		return mav;
 	}
 }

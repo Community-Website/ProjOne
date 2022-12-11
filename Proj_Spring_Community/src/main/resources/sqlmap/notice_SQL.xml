@@ -64,7 +64,13 @@
 			where num = #{num}
 		]]>
 	</delete>
-	
+	<!-- 공지사항 삭제되면  코멘트도  삭제 -->
+	<select id="deleteReOfNotice" parameterType="int" >
+		<![CDATA[
+			delete from noticeReply 
+			where ref= #{ref}
+		]]>
+	</select>
 	<!-- 공지사항 코멘트 수 -->
 	<select id="selectReplyMaxNum" parameterType="hashMap" resultType="int">
 		<![CDATA[
@@ -76,7 +82,7 @@
 	<insert id="insertReply" parameterType="hashMap" useGeneratedKeys="true" >
 		<![CDATA[
 			insert into noticeReply (uId, uName, content, pos, ref, depth, regTM, ip )
-			values (#{uId}, #{uName}, #{content}, 0, #{ref}, 0, now(), #{ip})
+			values (#{uId}, #{uName}, #{content}, #{pos}, #{ref}, 0, now(), #{ip})
 		]]>
 	</insert>
 	<!-- 공지사항 코멘트 목록 -->
@@ -84,8 +90,38 @@
 		<![CDATA[
 			select * from noticeReply 
 			where ref= #{ref}
-			order by ref desc, pos asc
+			order by pos asc, depth asc
 		]]>
 	</select>
+	<!-- 공지사항 대댓글 등록 -->
+	<insert id="insertReplyReply" parameterType="hashMap" useGeneratedKeys="true" keyProperty="int">
+		<![CDATA[
+			insert into noticeReply (uId, uName, content, pos, ref, depth, regTM, ip )
+			values (#{uId}, #{uName}, #{content}, #{pos} , #{ref}, #{depth}+1 , now(), #{ip})
+		]]>
+	</insert>
+	<!-- 공지사항 대댓글 끼어들기 -->
+	<update id="replyUp" parameterType="hashMap">
+		<![CDATA[
+			update noticeReply 
+			set pos = pos + 1
+			where ref = #{ref} and pos > #{pos}
+		]]>
+	</update>
+	<!-- 공지사항 댓글 삭제 -->
+	<delete id="deleteReply" parameterType="int">
+		<![CDATA[
+			delete from noticeReply 
+			where num = #{num}
+		]]>
+	</delete>
 	
+	<!--공지사항 수정 -->
+	<update id="updateReply" parameterType="hashMap">
+		<![CDATA[
+			update noticeReply 
+			set content = #{content}
+			where num = #{num}
+		]]>
+	</update>
 </mapper>

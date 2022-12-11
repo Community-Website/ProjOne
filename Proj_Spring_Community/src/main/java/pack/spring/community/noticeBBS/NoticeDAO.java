@@ -42,10 +42,15 @@ public class NoticeDAO {
 	public int updateNotice(Map<String, Object> map) {
 		return this.sqlSessionTemplate.update("noticeBBS.updateNotice", map);
 	}
-	
+
 	// 공지사항 삭제
 	public int deleteNotice(int num) {
 		return this.sqlSessionTemplate.delete("noticeBBS.deleteNotice", num);
+	}
+
+	// 공지사항 삭제되면 코멘트도 삭제
+	public int deleteReOfNotice(int ref) {
+		return this.sqlSessionTemplate.delete("noticeBBS.deleteReOfNotice", ref);
 	}
 
 	// 공지사항 코멘트 수
@@ -63,4 +68,23 @@ public class NoticeDAO {
 		return this.sqlSessionTemplate.selectList("noticeBBS.selectReplyAll", ref);
 	}
 
+	// 공지사항 대댓글쓰기
+	public int insertReplyReply(Map<String, Object> map) {
+		return this.sqlSessionTemplate.insert("noticeBBS.insertReplyReply", map);
+	}
+
+	// 공지사항 댓글끼어들기
+	public int replyUp(Map<String, Object> map) {
+		return this.sqlSessionTemplate.update("noticeBBS.replyUp", map);
+	}
+
+	// 공지사항 삭제
+	public int deleteReply(int num) {
+		return this.sqlSessionTemplate.delete("noticeBBS.deleteReply", num);
+	}
+
+	// 공지사항 댓글 수정
+	public int updateReply(Map<String, Object> map) {
+		return this.sqlSessionTemplate.update("noticeBBS.updateReply", map);
+	}
 }
