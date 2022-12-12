@@ -31,6 +31,9 @@ public interface NoticeService {
 	// 공지사항 코멘트 수(maxNum)
 	int getReplyMaxNum(Map<String, Object> map);
 
+	// 공지사항 코멘트 수(count)
+	Map<String, Object> selectReplyCount(Map<String, Object> map);
+		
 	// 공지사항 코멘트쓰기
 	int insertReply(Map<String, Object> map);
 	

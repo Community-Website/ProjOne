@@ -101,4 +101,10 @@ public class NoticeServiceImp implements NoticeService {
 		return this.noticeDAO.updateReply(map);
 	}
 
+	// 공지사항 코멘트 수(count)
+	@Override
+	public Map<String, Object> selectReplyCount(Map<String, Object> map) {
+		return this.noticeDAO.selectReplyCount(map);
+	}
+
 }

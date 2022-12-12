@@ -161,7 +161,7 @@
 													<button type="button" class="btn" data-bs-toggle="dropdown"
 														style="border: 0px;">···</button>
 													<ul class="dropdown-menu">
-														<li><a class="dropdown-item" href="#" id="replyUpdate">수정</a></li>
+														<li><a class="dropdown-item" href="#updateReplyDiv" id="replyUpdateBtn">수정</a></li>
 														<li><a class="dropdown-item" href="/noticeBBS/n_deleteReply?num=${reply.num }&ref=${reply.ref}" id="replydelete">삭제</a></li>
 													</ul>
 											</c:if>
@@ -236,7 +236,7 @@
 								</li>
 							</ul>
 							<!-- 댓글 수정 -->
-							<div id="updateReplyDiv" style="display: none"> 
+							<div id="updateReplyDiv" style="display: none" class="updateReplyDiv${reply.num }"> 
 								<form name="replyFrm3" method="post" id="replyFrm3" action="/noticeBBS/n_updateReply">
 									<table id="replyTbl">
 										<tbody id="replyTblbody">
@@ -245,6 +245,7 @@
 													type="hidden" name="uName" id="uName" value="${uName}">
 													<input type="hidden" name="uId" id="uId" value="${uId_Session}">
 													<input type="hidden" name="num" id="num" value="${reply.num}">
+													<input type="hidden" name="ref" id="ref" value="${detail.num}">
 												</td>
 											</tr>
 											<tr>
