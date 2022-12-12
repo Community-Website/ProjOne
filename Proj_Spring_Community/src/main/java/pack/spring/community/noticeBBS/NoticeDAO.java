@@ -53,9 +53,13 @@ public class NoticeDAO {
 		return this.sqlSessionTemplate.delete("noticeBBS.deleteReOfNotice", ref);
 	}
 
-	// 공지사항 코멘트 수
+	// 공지사항 코멘트 수(MaxNum)
 	public int getReplyMaxNum(Map<String, Object> map) {
 		return this.sqlSessionTemplate.selectOne("noticeBBS.selectReplyMaxNum", map);
+	}
+	// 공지사항 코멘트 수(count)
+	public Map<String, Object> selectReplyCount(Map<String, Object> map) {
+		return this.sqlSessionTemplate.selectOne("noticeBBS.selectReplyCount", map);
 	}
 
 	// 공지사항 코멘트쓰기

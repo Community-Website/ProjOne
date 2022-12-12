@@ -568,12 +568,27 @@ table#replyTbl>tfoot button#replyBtn3 {
 	font-weight: bold;
 	color: #858585;
 }
-
 table#replyTbl>tfoot button#replyBtn3:hover {
 	border: 0px;
 	background: none;
 	font-weight: bold;
 	color: black;
+	cursor: pointer;
+}
+table#replyTbl>tfoot button#replyUpdateCancel {
+	border: 0px;
+	background: none;
+	font-weight: bold;
+	color: #858585;
+}
+table#replyTbl>tfoot button#replyUpdateCancel:hover {
+	border: 0px;
+	background: none;
+	font-weight: bold;
+	color: black;
+	cursor: pointer;
+}
+p#replyUpdate{
 	cursor: pointer;
 }
 

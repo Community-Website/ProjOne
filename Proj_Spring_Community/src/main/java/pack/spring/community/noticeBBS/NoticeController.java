@@ -361,7 +361,7 @@ public class NoticeController {
 	public ModelAndView updateReply(@RequestParam Map<String, Object> map) throws IOException {
 		ModelAndView mav = new ModelAndView();
 		int cnt = this.noticeService.updateReply(map);
-		int num=Integer.parseInt((String)map.get("num"));
+		int num=Integer.parseInt((String)map.get("ref"));
 		String msg = "", url = "";
 		if (cnt > 0) {
 			msg = "댓글이 수정되었습니다!";

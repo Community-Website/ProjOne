@@ -71,10 +71,16 @@
 			where ref= #{ref}
 		]]>
 	</select>
-	<!-- 공지사항 코멘트 수 -->
+	<!-- 공지사항 코멘트 수(MaxNum) -->
 	<select id="selectReplyMaxNum" parameterType="hashMap" resultType="int">
 		<![CDATA[
 				select max(num) from noticeReply
+		]]>	
+	</select> 
+	<!-- 공지사항 코멘트 수(count) -->
+	<select id="selectReplyCount" parameterType="hashMap" resultType="hashMap">
+		<![CDATA[
+				select count(*), ref from noticeReply group by ref
 		]]>	
 	</select> 
 	
@@ -85,12 +91,13 @@
 			values (#{uId}, #{uName}, #{content}, #{pos}, #{ref}, 0, now(), #{ip})
 		]]>
 	</insert>
+	
 	<!-- 공지사항 코멘트 목록 -->
 	<select id="selectReplyAll" parameterType="int" resultType="hashMap">
 		<![CDATA[
 			select * from noticeReply 
 			where ref= #{ref}
-			order by pos asc, depth asc
+			order by pos desc, depth asc
 		]]>
 	</select>
 	<!-- 공지사항 대댓글 등록 -->

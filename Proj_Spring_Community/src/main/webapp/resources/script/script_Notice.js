@@ -166,7 +166,7 @@ $(function(){
 	/* 댓글입력양식 수정 페이지 전송 끝 /noticeBBS/n_reply2 */		
 	
 	/* 댓글 수정 전송 시작 /noticeBBS/n_reply2 */
-	$("#replyUpdate").click(function(){
+	$("[id^=replyUpdateBtn]").on('click',function(event){
 		$(this).closest("div#replyDiv").find("ul#replyUl").css({
 			display:"none"
 		});
@@ -176,7 +176,7 @@ $(function(){
 		$(this).closest("div#replyDiv").find("div#updateReplyDiv").focus();
 		
 	});
-	$("#replyUpdateCancel").click(function(){
+	$("[id^=replyUpdateCancel]").on('click',function(event){
 		$(this).closest("div#replyDiv").find("ul#replyUl").css({
 			display:"inherit"
 		});
