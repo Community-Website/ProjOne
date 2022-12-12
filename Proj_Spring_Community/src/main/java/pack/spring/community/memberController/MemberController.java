@@ -15,12 +15,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mysql.cj.Session;
+
+import pack.spring.community.admin.AdminService;
 import pack.spring.community.memberModel.MemberService;
 
 @Controller
 public class MemberController {
 	@Autowired
 	MemberService memberService;
+	
+	@Autowired
+	AdminService adminService;
 	
 ////////////////////////////// G E T 방식 /////////////////////////////////////////////////////////////////////////////////////////
 	// 회원가입 get
@@ -178,15 +184,31 @@ public class MemberController {
 	@RequestMapping(value = "/member/login", method = RequestMethod.POST)
 	public ModelAndView loginPost(HttpServletRequest request,@RequestParam Map<String, Object> map) {
 		ModelAndView mav = new ModelAndView();
-		boolean loginRes = this.memberService.loginMember(map);
-		String uId=(String) map.get("uId");
 		
+		boolean loginRes;
+		String uId = "";
+		String res = "";
+		int level = 0;
+		if(adminService.adminCheck(map)>0) {
+			Map<String, Object> adminMap = adminService.adminDetail(map);
+			uId = (String) adminMap.get("uId");
+			res = "admin";
+			level = (int) adminMap.get("ulevel");
+			loginRes = adminService.adminLogin(adminMap);
+		}else {
+			loginRes = memberService.loginMember(map);
+			uId=(String) map.get("uId");
+			res = "member";
+		}
+
 		System.out.println("로그인 loginRes="+loginRes+" uId="+uId);
 		
 		HttpSession session =request.getSession();
 		String msg = "아이디 또는 비밀번호를 확인해주세요.", url="/member/login";
 		if(loginRes) {
 			session.setAttribute("uId_Session", uId);
+			session.setAttribute("res", res);
+			session.setAttribute("level", level);
 			msg="로그인되었습니다.";
 			url="/";
 		}

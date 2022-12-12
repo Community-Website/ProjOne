@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<c:set var="res" value="${sessionScope.res }"/>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -32,7 +32,7 @@
 	    				<li>|</li>
 	    				<li class="mainLi"><a href="/bbs/list">게시판</a></li>
     				</c:when>
-    				<c:when test="${sessionScope.uId_Session eq 'admin' }">
+    				<c:when test="${res eq 'admin' }">
     					<li class="mainLi"><a href="/">HOME</a></li>
 	    				<li>|</li>
 	    				<li class="mainLi"><a href="/member/logout">로그아웃</a></li>
