@@ -39,7 +39,7 @@
 	    				<li>|</li>
 	    				<li class="mainLi"><a href="/member/myPage?gnbParam=adminPage" style="width: 102px;">관리자페이지</a></li>
 	    				<li>|</li>
-	    				<li class="mainLi"><a href="/noticeBbs/n_list">공지사항</a></li>
+	    				<li class="mainLi"><a href="/noticeBBS/n_list">공지사항</a></li>
     				</c:when>
     				<c:otherwise>
 	    				<li class="mainLi"><a href="/">HOME</a></li>
