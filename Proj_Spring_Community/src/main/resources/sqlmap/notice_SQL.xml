@@ -23,13 +23,14 @@
 	<!-- 공지사항 목록 -->
 	<select id="selectAll" parameterType="hashMap" resultType="hashMap">
 		<![CDATA[
-			select * from noticeBoard 
+			select t.*,(select n.count from (select count(*) as 'count', ref as 'ref' from noticeReply group by ref) n where t.num=n.ref ) as 'count'
+			from noticeBoard t
 		]]>
 			<if test='keyWord != null and keyWord != "" '>
 				where ${keyField } like '%${keyWord}%'
  			</if>
 		<![CDATA[
-				order by ref desc, pos asc
+			order by num desc
 		]]>
 	</select>
 	<!--공지사항 조회수 증가 -->
@@ -97,7 +98,7 @@
 		<![CDATA[
 			select * from noticeReply 
 			where ref= #{ref}
-			order by pos desc, depth asc
+			order by pos desc, depth,num
 		]]>
 	</select>
 	<!-- 공지사항 대댓글 등록 -->
