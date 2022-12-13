@@ -153,6 +153,10 @@ create table noticeBoard (
     fileSize		int					null,
     constraint		primary key(num)
 );
+
+insert into noticeBoard(uId, uName, subject, content, pos, ref, depth, regTM, readCnt)
+values ('admin', '관리자', '[공지사항] 테스트', '안녕하세요', 0, 1, 0, now(),0);
+
 ######### 공지게시판 코멘트 시작 #########
 create table noticeReply (
     num          int                    auto_increment,

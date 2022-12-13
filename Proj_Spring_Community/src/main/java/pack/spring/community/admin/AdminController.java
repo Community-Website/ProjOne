@@ -3,6 +3,8 @@ package pack.spring.community.admin;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,7 @@ public class AdminController {
 	
 	@Autowired
 	AdminService adminService;
+	
 	
 	// 회원 목록 조회
 	@RequestMapping(value = "/admin/memberList")

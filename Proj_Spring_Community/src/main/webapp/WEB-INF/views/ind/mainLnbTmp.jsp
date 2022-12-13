@@ -3,7 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:set var="uId_Session_MLTmp" value="${sessionScope.uId_Session }"/>
-	<c:set var="gnbParam" value=""/>
+<c:set var="gnbParam" value=""/>
+<c:set var="res" value="${sessionScope.res }"/>
 <c:if test="${!empty param.gnbParam }">
 	<c:set var="gnbParam" value="${param.gnbParam }"/>
 </c:if>  
@@ -27,8 +28,8 @@
 				<li class="lnbMainLi"><a href="#">menu4</a></li>
 				<li class="lnbMainLi"><a href="#">menu5</a></li>		
 			</c:if>
-			<c:if test="${uId_Session_MLTmp eq 'admin'}">
-				<c:if test="${gnbParam eq 'adminPage' }">
+			<c:if test="${res eq 'admin'}">
+				<c:if test="${gnbParam eq 'adminPage' || gnbParam eq 'memberList'}">
 					<li class="lnbMainLi"><a href="/admin/memberList">회원관리</a></li>
 					<li class="lnbMainLi"><a href="#">게시판관리</a></li>
 					<li class="lnbMainLi"><a href="#">menu3</a></li>
@@ -43,7 +44,7 @@
 					<li class="lnbMainLi"><a href="#">menu5</a></li>
 				</c:if>
 			</c:if>
-			<c:if test="${!empty  uId_Session_MLTmp and uId_Session_MLTmp ne 'admin'}">
+			<c:if test="${!empty  uId_Session_MLTmp and res eq 'member'}">
 				<c:if test="${gnbParam eq 'myPage' }">
 					<li class="lnbMainLi"><a
 						href="/member/memberMod?uId=${uId_Session_MLTmp}">회원정보수정</a></li>

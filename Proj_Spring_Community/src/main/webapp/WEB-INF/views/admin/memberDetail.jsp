@@ -3,6 +3,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <c:set var="uId_Session" value="${sessionScope.uId_Session }"/>
+<c:set var="res" value="${sessionScope.res }"/>
+<c:set var="level" value="${sessionScope.level }"/>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -106,7 +108,12 @@
 							</tr>
 							<tr>
 								<td colspan="3">
-									<button type="button" class="frmBtn">회원탈퇴</button>
+									<c:if test="${level ==1 }">
+										<button type="button" class="frmBtn">회원탈퇴</button>
+									</c:if>
+									<c:if test="${level < 3 }">
+										<button type="button" class="frmBtn">회원수정</button>
+									</c:if>
 									<button type="button" id="frmBtn" class="frmBtn" onclick="movePage('${param.nowPage}')">회원리스트</button>
 								</td>
 							</tr>
