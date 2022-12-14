@@ -38,6 +38,19 @@ public class AdminDao {
 		return this.sqlSessionTemplate.selectOne("admin.memDetail", num);
 	}
 	
+	// 회원 정보 수정
+	public int memUpdate(Map<String, Object> map){
+		return this.sqlSessionTemplate.update("admin.memUpdate",map);
+	}
 	
+	// 회원 삭제
+	public int memDelete(int num) {
+		return this.sqlSessionTemplate.delete("admin.memDelete", num);
+	}
+	
+	// 관리자 비밀번호 정보 가져오기
+	public String adminPw(String uId){
+		return this.sqlSessionTemplate.selectOne("admin.adminPw", uId);
+	}
 	
 }

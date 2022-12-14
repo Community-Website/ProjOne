@@ -18,4 +18,13 @@ public interface AdminService {
 	
 	// 회원 정보 조회
 	Map<String, Object> memDetail(int num);
+	
+	// 회원 정보 수정
+	int memUpdate(Map<String, Object> map);
+	
+	// 회원 삭제
+	int memDelete(int num);
+	
+	// 관리자 비밀번호 가져오기
+	String adminPw(String uId);
 }

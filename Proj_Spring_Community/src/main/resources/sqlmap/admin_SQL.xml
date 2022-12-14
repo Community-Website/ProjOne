@@ -46,5 +46,38 @@
 			where num = ${num}
 		]]>
 	</select>
-
+	
+	<!-- 회원 정보 수정 -->
+	<update id="memUpdate" parameterType="hashMap" >
+		<![CDATA[
+			update member
+			set uName= #{uName}, uEmail= #{uEmail}, gender= #{gender}, uBirthday= #{uBirthday}, uZipcode= #{uZipcode}, uAddr = #{uAddr}, uHobby = #{uHobby}, uJob = #{uJob}
+			where num = #{num}
+		]]>
+	</update>
+	
+	<!-- 회원 삭제 -->
+	<delete id="memDelete" parameterType="int">
+		<![CDATA[
+			delete from member
+			where num = #{num}
+		]]>
+	</delete>
+	
+	<!-- 관리자 비밀번호 정보 가져오기 -->
+	<select id="adminPw" parameterType="String" resultType="String">
+		<![CDATA[
+			select uPw from admin where uId = #{uId}
+		]]>
+	</select> 
+	
+	<!-- 게시판 관리 -->
+	<!-- 게시글 삭제 -->
+	<update id="bbsDeletebyAdmin" parameterType="hashMap" >
+		<![CDATA[
+			update tblBoard 
+			set subject = "관리자의 권한으로 삭제된 글 입니다."
+			where num = #{num}
+		]]>
+	</update>
 </mapper>

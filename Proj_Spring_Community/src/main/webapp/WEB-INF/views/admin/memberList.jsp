@@ -42,11 +42,11 @@
     	<!--  헤더템플릿 끝 -->    	
     	
     	<main id="main" class="dFlex">   	
-    		<div id="lnb">
+    		<%-- <div id="lnb">
 	    		<!--  메인 LNB 템플릿 시작 -->
 				<%@ include file="../ind/mainLnbTmp.jsp" %>
 	    		<!--  메인 LNB 템플릿 끝 -->    	
-    		</div>
+    		</div> --%>
     		   		
 	    	<!-- 실제 작업 영역 시작 -->
     		<div id="contents" class="memList">

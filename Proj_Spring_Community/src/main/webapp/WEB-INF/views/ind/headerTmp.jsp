@@ -37,9 +37,9 @@
 	    				<li>|</li>
 	    				<li class="mainLi"><a href="/member/logout">로그아웃</a></li>
 	    				<li>|</li>
-	    				<li class="mainLi"><a href="/member/myPage?gnbParam=adminPage" style="width: 102px;">관리자페이지</a></li>
+	    				<li class="mainLi"><a href="/admin/memberList" style="width: 102px;">회원관리</a></li>
 	    				<li>|</li>
-	    				<li class="mainLi"><a href="/noticeBBS/n_list">공지사항</a></li>
+	    				<li class="mainLi"><a href="/noticeBBS/n_list">게시판</a></li>
     				</c:when>
     				<c:otherwise>
 	    				<li class="mainLi"><a href="/">HOME</a></li>

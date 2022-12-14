@@ -28,16 +28,16 @@
 
 
 		<main id="main" class="dFlex">
-			<div id="lnb">
+			<%-- <div id="lnb">
 	    		<!--  메인 LNB 템플릿 시작 -->
 				<%@ include file="../ind/mainLnbTmp.jsp" %>
 	    		<!--  메인 LNB 템플릿 끝 -->    	
-    		</div>
+    		</div> --%>
 			<!-- 실제 작업 영역 시작 -->
 			<div id="contents" class="memDetail">
 
 				<form name="regFrm" id="regFrm" method="post" action="/admin/memberDetail">
-					<input type="hidden" name="uId" id="uId" maxlength="20" value="${mBean.uId }">
+					<input type="hidden" name="uId" id="uId" maxlength="20" value="${mem.uId }">
 					<table id="regFrmTbl">
 						<caption>회원 상세 정보</caption>
 						<tbody>
@@ -109,10 +109,10 @@
 							<tr>
 								<td colspan="3">
 									<c:if test="${level ==1 }">
-										<button type="button" class="frmBtn">회원탈퇴</button>
+										<button type="button" id="deleteBtn" class="frmBtn" onclick="memberDelete('${mem.num}')">회원삭제</button>
 									</c:if>
 									<c:if test="${level < 3 }">
-										<button type="button" class="frmBtn">회원수정</button>
+										<button type="button" id="modBtn" class="frmBtn" onclick="memberModify('${mem.num}')">회원수정</button>
 									</c:if>
 									<button type="button" id="frmBtn" class="frmBtn" onclick="movePage('${param.nowPage}')">회원리스트</button>
 								</td>

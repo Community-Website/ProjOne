@@ -3,14 +3,18 @@ package pack.spring.community.admin;
 import java.util.List;
 import java.util.Map;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.ModelAndViewDefiningException;
 
 import pack.spring.community.common.PaginationInfo;
 
@@ -98,5 +102,77 @@ public class AdminController {
 		mav.setViewName("/admin/memberDetail");
 		
 		return mav;	
+	}
+	
+	// 회원 정보 수정 화면 보여주기
+	@RequestMapping(value="/admin/memberModify", method = RequestMethod.GET)
+	public ModelAndView memberModify(@RequestParam int num) {
+		Map<String, Object> mem = this.adminService.memDetail(num);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("mem", mem);
+		mav.setViewName("/admin/memberModify");
+		
+		return mav;
+	}
+	
+	// 회원 정보 수정 처리
+	@RequestMapping(value="/admin/memberModify", method = RequestMethod.POST)
+	public ModelAndView memUpdate(@RequestParam Map<String, Object> map, 
+			@RequestParam int num) {
+		ModelAndView mav = new ModelAndView();
+		
+		int cnt = this.adminService.memUpdate(map);
+		
+		String msg = "회원 정보 수정 실패!", url = "/admin/memberModify?num="+num;
+		if (cnt > 0) {
+			msg = "회원 정보가 수정되었습니다.";
+			url = "/admin/memberDetail?num="+ num;
+		}
+		
+		mav.addObject("msg", msg);
+		mav.addObject("url", url);
+		mav.setViewName("/common/message");
+		
+		return mav;
+		
+	}
+	
+	// 회원 삭제 화면 보여주기
+	@RequestMapping(value="/admin/memberDelete", method = RequestMethod.GET)
+	public ModelAndView memDeleteChk() {
+		return new ModelAndView("/admin/memberDelete");
+	}
+	
+	// 회원 삭제 처리
+	@RequestMapping(value="/admin/memberDelete", method = RequestMethod.POST)
+	public ModelAndView memDelete(@RequestParam int num, 
+			@RequestParam String uPw, @RequestParam String uId) {
+		ModelAndView mav = new ModelAndView();
+		
+		String adminPw = this.adminService.adminPw(uId);
+		
+		String msg = "", url = "";
+		if(adminPw.equals(uPw)) {
+			int cnt = this.adminService.memDelete(num);
+		
+			if(cnt > 0) {
+				msg = "회원이 삭제 되었습니다.";
+				url = "/admin/memberList";
+			}else {
+				msg = "회원 삭제 실패!";
+				url = "/admin/memberDetail?num="+num;
+			}
+		}else {
+			msg = "비밀번호를 확인하세요";
+			url = "/admin/memberDelete?num="+num;
+		}
+		
+		mav.addObject("msg", msg);
+		mav.addObject("url", url);
+		mav.setViewName("/common/message");
+		
+		return mav;
 	}
 }

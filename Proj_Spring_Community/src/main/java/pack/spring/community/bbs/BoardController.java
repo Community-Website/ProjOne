@@ -291,7 +291,7 @@ public class BoardController {
 	
 	// 글 삭제 처리
 	@RequestMapping(value="/bbs/delete", method = RequestMethod.GET)
-	public String delete(@RequestParam int num, Model model) {
+	public ModelAndView delete(@RequestParam int num) {
 		ModelAndView mav = new ModelAndView();
 		
 		int cnt = this.boardService.deleteBoard(num);
@@ -307,10 +307,11 @@ public class BoardController {
 			url = "/bbs/detail?num="+num;
 		}
 		
-		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
+		mav.addObject("msg", msg);
+		mav.addObject("url", url);
+		mav.setViewName("/common/message");
 		
-		return "/common/message";
+		return mav;
 	}
 	
 	// 댓글 등록 화면 보여주기

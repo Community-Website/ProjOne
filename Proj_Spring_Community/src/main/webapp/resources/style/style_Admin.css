@@ -171,7 +171,7 @@ div.memList td#pagingTd span.moveBlockArea {
 /*//////////// 회원 상세 정보 스타일 시작 /admin/memberDetail.jsp //////////// */
 /*////////////////////////////////////////////////////////////////////*/
 div#wrap>main#main>div.memDetail>form#regFrm {
-	width: 820px;
+	width: 860px;
 	padding: 4px;
 	/*border: 1px solid #f80;*/
 	margin: 0 auto;
@@ -228,18 +228,177 @@ div#wrap>main#main>div.memDetail>form#regFrm {
 }	
 	
 	
-	
 /*////////////////////////////////////////////////////////////////////*/
 /*//////////// 회원 상세 정보 스타일 끝 /admin/memberDetail.jsp //////////// */
 /*////////////////////////////////////////////////////////////////////*/
 
 
+/*////////////////////////////////////////////////////////////////////*/
+/*//////////// 회원 수정 스타일 /admin/memberModify.jsp //////////// */
+/*////////////////////////////////////////////////////////////////////*/
 
 
+div#wrap>main#main>div.joinInsert>form#regFrm {
+	width: 860px;
+	padding: 4px;
+	/*border: 1px solid #f80;*/
+	margin: 0 auto;
+}
+
+#wrap #regFrm>table#regFrmTbl {
+	width: 100%;
+	/*border: 1px solid #ccc;*/
+	border-collapse: collapse; 	
+} 
+
+#wrap #regFrm>#regFrmTbl>caption {
+	color: #f3f3f3;
+	font-size: 23px;
+	font-weight: bold;
+	padding: 13px;
+	border: 3px solid rgba(0, 127, 255, 0.12);
+	background-color: rgba(0, 127, 255, 0.5);
+}
+
+#wrap #regFrm>#regFrmTbl td {	
+	height: 48px;
+	padding: 10px 6px;
+	border-bottom: 1px solid #ccc;
+}
+#wrap #regFrm>#regFrmTbl td:first-child {
+	width: 140px;	
+	padding-left: 14px;
+} 
+#wrap #regFrm>#regFrmTbl td:nth-child(2) {
+	width: 500px;	
+} 
+
+#wrap #regFrm>#regFrmTbl td:last-child>span {
+	color: #888;
+	font-size: 13px;
+} 
 
 
+#wrap #regFrm>#regFrmTbl td input {
+	font-size: 17px;
+	padding: 3px 10px;
+}
+
+	/* 회원가입 필수 입력 시작 */
+#wrap #regFrm>#regFrmTbl td.req::after {
+	content: " *";
+	color: #f80;
+} 	
+	/* 회원가입 필수 입력 끝 */
+	
+	
+	/* 이메일 인증코드 입력 시작 */
+#wrap #regFrm>#regFrmTbl td div#emailAuthArea {
+	margin-top: 10px;
+	
+	display: none;
+}	
+	/* 이메일 인증코드 입력 끝 */
+	
+	
+	/* 우편번호 아웃라인 제거 */
+#wrap #regFrm>#regFrmTbl td>input#uZipcode {
+	outline: none;
+}	
+
+	/* 회원가입 버튼 공통 스타일 */
+#wrap #regFrm>#regFrmTbl button.frmBtn {
+	font-size: 15px;
+	padding: 4px 14px 5px;
+	
+	cursor: pointer;
+	transform: translateY(-1px);
+}	
+
+	/* 회원가입 드롭다운메뉴(Select 태그) 공통 스타일 */
+#wrap #regFrm>#regFrmTbl select.frmDropMenu {
+	font-size: 15px;
+	padding: 4px 7px 5px;
+	outline: none;	
+}	
+
+	/* 회원가입 label 좌우 여백 적용 */
+#wrap #regFrm>#regFrmTbl label {
+	margin: 0 6px;
+}
+
+	/* 회원가입 체크박스, 라디오버튼 크기 설정 */
+#wrap #regFrm>#regFrmTbl label>input {
+	width: 18px;
+	height: 18px;
+	
+	transform: translateY(4px);
+}
+
+	/* 회원가입, 리셋, 로그인 버튼 가운데 정렬 */
+#wrap #regFrm>#regFrmTbl tr:last-child>td {
+	text-align: center;
+	padding-top: 30px;
+	border-bottom: none;
+}	
+
+/*////////////////////////////////////////////////////////////////////*/
+/*//////////// 회원 수정 스타일 끝 /admin/memberModify.jsp //////////// */
+/*////////////////////////////////////////////////////////////////////*/
 
 
+/*////////////////////////////////////////////////////////////////////*/
+/*//////////// 회원탈퇴 시작 /member/memberQuit.jsp ///////////// */
+/*////////////////////////////////////////////////////////////////////*/
+div#wrap>main#main>div.memQuitDiv {
+	text-align: center;
+	padding: 40px;
+}
+
+div#wrap>main#main>div.memQuitDiv>form#memQuitFrm {
+	
+	text-align: center;
+	padding: 20px;
+	border: 2px solid rgba(0, 0, 0, 0.1);
+	
+	display: inline-block;
+	
+}
+
+
+#main>.memQuitDiv>#memQuitFrm p {	
+	width: 350px;
+	font-size: 17px;
+	padding: 13px 16px;
+	margin-bottom: 7px;
+}
+
+#main>.memQuitDiv>#memQuitFrm button {	
+	width: 320px;
+	color: #fff;
+	font-size: 18px;
+	padding: 15px 20px;
+	border: none;
+	margin-top: 17px;
+	margin-bottom: 7px;
+	background-color: #4e87f0;
+	cursor: pointer;
+}
+
+#main>.memQuitDiv>#memQuitFrm input {	
+	width: 320px;
+	font-size: 18px;
+	padding: 15px 20px;
+	border: 3spx solid #4e87f0;
+	margin-top: 17px;
+	margin-bottom: 7px;
+	cursor: pointer;
+}
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*//////////// 회원탈퇴 끝 /member/memberQuit.jsp ///////////// */
+/*////////////////////////////////////////////////////////////////////*/
 
 
 

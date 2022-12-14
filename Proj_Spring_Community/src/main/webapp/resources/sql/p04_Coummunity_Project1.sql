@@ -171,3 +171,27 @@ create table noticeReply (
     constraint		primary key(num)
 );
 select * from noticeReply;
+
+
+
+######### 관리자 테이블 시작 #########
+create table admin (
+num		int 		unique auto_increment,
+uId 		char(30) 				,
+#uPw 		char(30) 	not null			,
+#uName 		char(30) 	not null			,	
+ulevel		int 				,
+constraint 	primary key(uId)
+);
+
+## level1: 수정, 삭제, 검색
+## level2: 수정, 검색
+## level3: 검색
+
+insert into admin (uId, uPw, uName, ulevel)   
+values ('admin', '1234', '슈퍼관리자', 1);  
+
+insert into admin (uId, uPw, uName, ulevel)
+values('adminSub', '1234', '서브관리자', 2); 
+
+######### 관리자 테이블 끝#########

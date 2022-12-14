@@ -5,6 +5,7 @@
 <!--   errorPage="/err/errorProc.jsp" -->
 
 <c:set var="uId_Session" value="${sessionScope.uId_Session }"/>
+<c:set var="res" value="${sessionScope.res }"/>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -113,7 +114,7 @@
 								<button type="button" id="listBtn">${listBtnLabel}</button>
 								<button type="button" id="replyBtn">답 변</button>
 								<c:if test="${!empty uId_Session}">
-									<c:if test="${uId_Session==detail.uId}">
+									<c:if test="${uId_Session==detail.uId || res != '0' }">
 										<button type="button" id="delBtn">삭 제</button>
 										<button type="button" id="modBtn">수 정</button>
 									</c:if>

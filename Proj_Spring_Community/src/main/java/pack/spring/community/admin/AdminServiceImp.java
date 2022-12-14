@@ -44,6 +44,22 @@ public class AdminServiceImp implements AdminService {
 	public Map<String, Object> adminDetail(Map<String, Object> map) {
 		return this.adminDao.adminDetail(map);
 	}
-
+	
+	// 회원 정보 수정
+	@Override
+	public int memUpdate(Map<String, Object> map) {
+		return this.adminDao.memUpdate(map);
+	}
+	
+	// 회원 삭제
+	@Override
+	public int memDelete(int num) {
+		return this.adminDao.memDelete(num);
+	}
+	
+	@Override
+	public String adminPw(String uId) {
+		return this.adminDao.adminPw(uId);
+	}
 	
 }
