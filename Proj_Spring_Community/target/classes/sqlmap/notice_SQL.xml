@@ -23,7 +23,7 @@
 	<!-- 공지사항 목록 -->
 	<select id="selectAll" parameterType="hashMap" resultType="hashMap">
 		<![CDATA[
-			select t.*,(select n.count from (select count(*) as 'count', ref as 'ref' from noticeReply group by ref) n where t.num=n.ref ) as 'count'
+			select t.*,(select n.count from (select count(*) as 'count', noticeNum as 'noticeNum' from noticeReply group by noticeNum) n where t.num=n.noticeNum ) as 'count'
 			from noticeBoard t
 		]]>
 			<if test='keyWord != null and keyWord != "" '>
@@ -88,8 +88,8 @@
 	<!-- 공지사항 코멘트 작성 -->
 	<insert id="insertReply" parameterType="hashMap" useGeneratedKeys="true" >
 		<![CDATA[
-			insert into noticeReply (uId, uName, content, pos, ref, depth, regTM, ip )
-			values (#{uId}, #{uName}, #{content}, #{pos}, #{ref}, 0, now(), #{ip})
+			insert into noticeReply (uId, uName, content, pos, ref, noticeNum, depth, regTM, ip )
+			values (#{uId}, #{uName}, #{content}, 0, #{ref}, #{noticeNum}, 0, now(), #{ip})
 		]]>
 	</insert>
 	
@@ -97,17 +97,23 @@
 	<select id="selectReplyAll" parameterType="int" resultType="hashMap">
 		<![CDATA[
 			select * from noticeReply 
-			where ref= #{ref}
-			order by pos desc, depth,num
+			where noticeNum= #{noticeNum}
+			order by ref desc, pos asc
 		]]>
 	</select>
 	<!-- 공지사항 대댓글 등록 -->
 	<insert id="insertReplyReply" parameterType="hashMap" useGeneratedKeys="true" keyProperty="int">
 		<![CDATA[
-			insert into noticeReply (uId, uName, content, pos, ref, depth, regTM, ip )
-			values (#{uId}, #{uName}, #{content}, #{pos} , #{ref}, #{depth}+1 , now(), #{ip})
+			insert into noticeReply (uId, uName, content, pos, ref, noticeNum, depth, regTM, ip )
+			values (#{uId}, #{uName}, #{content}, #{pos}+1 , #{ref},#{noticeNum}, #{depth}+1 , now(), #{ip})
 		]]>
 	</insert>
+	<!-- 공지사항 코멘트 수(MaxNum) -->
+	<select id="selectReplyMaxPos" parameterType="hashMap" resultType="int">
+		<![CDATA[
+				select max(pos) from noticeReply where ref=#{ref} and noticeNum=#{noticeNum}
+		]]>	
+	</select> 
 	<!-- 공지사항 대댓글 끼어들기 -->
 	<update id="replyUp" parameterType="hashMap">
 		<![CDATA[

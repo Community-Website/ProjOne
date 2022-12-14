@@ -73,8 +73,8 @@ public class NoticeServiceImp implements NoticeService {
 
 	// 공지사항 코멘트 보기
 	@Override
-	public List<Map<String, Object>> noticeReplyList(int ref) {
-		return this.noticeDAO.noticeReplyList(ref);
+	public List<Map<String, Object>> noticeReplyList(int noticeNum) {
+		return this.noticeDAO.noticeReplyList(noticeNum);
 	}
 
 	// 공지사항 대댓글쓰기
@@ -105,6 +105,11 @@ public class NoticeServiceImp implements NoticeService {
 	@Override
 	public Map<String, Object> selectReplyCount(Map<String, Object> map) {
 		return this.noticeDAO.selectReplyCount(map);
+	}
+
+	@Override
+	public int getReplyMaxPos(Map<String, Object> map) {
+		return this.noticeDAO.getReplyMaxPos(map);
 	}
 
 }

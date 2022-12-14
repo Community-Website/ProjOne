@@ -149,8 +149,8 @@ public class NoticeController {
 
 		Map<String, Object> detailMap = this.noticeService.detail(num);
 
-		int ref = num;
-		List<Map<String, Object>> list = this.noticeService.noticeReplyList(ref);
+		int noticeNum = num;
+		List<Map<String, Object>> list = this.noticeService.noticeReplyList(noticeNum);
 
 		ModelAndView mav = new ModelAndView();
 
@@ -210,14 +210,14 @@ public class NoticeController {
 
 	// 코멘트 삭제
 	@RequestMapping(value = "/noticeBBS/n_deleteReply", method = RequestMethod.GET)
-	public ModelAndView n_deleteReply(@RequestParam int num,@RequestParam int ref) {
+	public ModelAndView n_deleteReply(@RequestParam int num,@RequestParam int noticeNum) {
 		int cnt = this.noticeService.deleteReply(num);
 
 		ModelAndView mav = new ModelAndView();
 		String msg = "", url = "";
 		if (cnt > 0) {
 			msg = "삭제되었습니다!";
-			url = "/noticeBBS/n_detail?num=" + ref;
+			url = "/noticeBBS/n_detail?num=" + noticeNum;
 		} else {
 			msg = "삭제실패!";
 			url = "javascript:history.back()";
@@ -321,10 +321,11 @@ public class NoticeController {
 	@RequestMapping(value = "/noticeBBS/n_reply", method = RequestMethod.POST)
 	public ModelAndView replyPost(@RequestParam Map<String, Object> map) throws IOException {
 		int num = Integer.parseInt((String) map.get("num"));
-		int ref = num;
-		int pos=this.noticeService.getReplyMaxNum(map)+1;
+		int noticeNum = num;
+		System.out.println("상세보기 코멘트 달기 noticeNum="+noticeNum);
+		int ref=this.noticeService.getReplyMaxNum(map)+1;
+		map.put("noticeNum", noticeNum);
 		map.put("ref", ref);
-		map.put("pos", pos);
 		int cnt = this.noticeService.insertReply(map);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/noticeBBS/n_detail?num=" + num);
@@ -336,10 +337,13 @@ public class NoticeController {
 	public ModelAndView reply2Post(@RequestParam Map<String, Object> map) throws IOException {
 		ModelAndView mav = new ModelAndView();
 		int num = Integer.parseInt((String) map.get("num"));
-		int ref = num;
-		map.put("ref", ref);
-		System.out.println("코멘트의코멘트(대댓글) 달기 pos="+map.get("pos"));
-		//int replyUp = this.noticeService.replyUp(map);
+		int noticeNum = num;
+		map.put("noticeNum", noticeNum);
+		System.out.println("코멘트의코멘트(대댓글) 달기 ref="+map.get("ref"));
+		//int pos=this.noticeService.getReplyMaxPos(map);
+		//map.put("pos", pos);
+		
+		int replyUp = this.noticeService.replyUp(map);
 		int cnt = this.noticeService.insertReplyReply(map);
 
 		String msg = "", url = "";
@@ -361,7 +365,7 @@ public class NoticeController {
 	public ModelAndView updateReply(@RequestParam Map<String, Object> map) throws IOException {
 		ModelAndView mav = new ModelAndView();
 		int cnt = this.noticeService.updateReply(map);
-		int num=Integer.parseInt((String)map.get("ref"));
+		int num=Integer.parseInt((String)map.get("noticeNum"));
 		String msg = "", url = "";
 		if (cnt > 0) {
 			msg = "댓글이 수정되었습니다!";

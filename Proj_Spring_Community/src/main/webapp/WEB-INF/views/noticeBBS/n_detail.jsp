@@ -133,12 +133,48 @@
 				<input type="hidden" id="pKeyField" value="${param.keyField}"> <input
 					type="hidden" id="pKeyWord" value="${param.keyWord}">
 				<!-- 검색어전송 끝 -->
-				<c:if test="${!empty list}">
+				
 					<p id="replyTitle">
 						댓글 <span
 							style="font-weight: normal; font-size: 16px; vertical-align: center;">${fn:length(list) }</span>
 					</p>
 					<br>
+					<c:if test="${!empty uId_Session}">
+					<form name="replyFrm" method="post" id="replyFrm"
+						action="/noticeBBS/n_reply">
+						<table id="replyTbl">
+							<tbody id="replyTblbody">
+								<tr>
+									<td id="replyUName">${uName }(${uId_Session})<input
+										type="hidden" name="uName" id="uName" value="${uName}">
+										<input type="hidden" name="uId" id="uId" value="${uId_Session}">
+										<input type="text" name="num" id="num" value="${detail.num}">
+									</td>
+								</tr>
+								<tr>
+									<td id="replyContent"><textarea name="content" id="content"
+											cols="60" wrap="hard" placeholder="댓글을 남겨보세요"></textarea></td>
+								</tr>
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="2" id="replyButton" class="reply">
+										<button type="button" id="replyBtn">등록</button>
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+						<input type="hidden" name="ip" value="<%=request.getRemoteAddr()%>">
+						<!--  
+						    IP주소를 IPv4 형식으로 설정함.(IPv6 형식이 기본으로 설정되어 있음)
+						    프로젝트 => Run Configuration => Tomcat 클릭
+						    => (x)Argument => VM arguments 입력란 =>
+						    -Djava.net.preferIPv4Stack=true  
+						     -->
+					</form>
+				</c:if>
+				<c:if test="${!empty list}">
+				<br>
 					<c:set var="cnt" value="0"/>
 					<c:forEach var="reply" items="${list }">
 						<c:set var="cnt" value="${cnt+1 }"/>
@@ -162,7 +198,7 @@
 														style="border: 0px;">···</button>
 													<ul class="dropdown-menu">
 														<li><a class="dropdown-item" href="#updateReplyDiv" id="replyUpdateBtn">수정</a></li>
-														<li><a class="dropdown-item" href="/noticeBBS/n_deleteReply?num=${reply.num }&ref=${reply.ref}" id="replydelete">삭제</a></li>
+														<li><a class="dropdown-item" href="/noticeBBS/n_deleteReply?num=${reply.num }&noticeNum=${reply.noticeNum}" id="replydelete">삭제</a></li>
 													</ul>
 											</c:if>
 										</c:if>
@@ -210,6 +246,7 @@
 																<input type="hidden" name="uName" id="uName" value="${uName}">
 																<input type="hidden" name="uId" id="uId" value="${uId_Session}"> 
 																<input type="hidden" name="num" id="num" value="${detail.num}"><!-- 게시판번호 -->
+																<input type="hidden" name="ref" id="ref" value="${reply.ref}">
 																<input type="hidden" name="pos" id="pos" value="${reply.pos}">
 																<input type="hidden" name="depth" id="depth" value="${reply.depth}">
 																<input type="hidden" name="ip" value="<%=request.getRemoteAddr()%>">
@@ -270,40 +307,7 @@
 				</c:if>
 				<!--  게시글 상세보기 페이지 내용 출력 끝 -->
 				<br>
-				<c:if test="${!empty uId_Session}">
-					<form name="replyFrm" method="post" id="replyFrm"
-						action="/noticeBBS/n_reply">
-						<table id="replyTbl">
-							<tbody id="replyTblbody">
-								<tr>
-									<td id="replyUName">${uName }(${uId_Session})<input
-										type="hidden" name="uName" id="uName" value="${uName}">
-										<input type="hidden" name="uId" id="uId" value="${uId_Session}">
-										<input type="hidden" name="num" id="num" value="${detail.num}">
-									</td>
-								</tr>
-								<tr>
-									<td id="replyContent"><textarea name="content" id="content"
-											cols="60" wrap="hard" placeholder="댓글을 남겨보세요"></textarea></td>
-								</tr>
-							</tbody>
-							<tfoot>
-								<tr>
-									<td colspan="2" id="replyButton" class="reply">
-										<button type="button" id="replyBtn">등록</button>
-									</td>
-								</tr>
-							</tfoot>
-						</table>
-						<input type="hidden" name="ip" value="<%=request.getRemoteAddr()%>">
-						<!--  
-						    IP주소를 IPv4 형식으로 설정함.(IPv6 형식이 기본으로 설정되어 있음)
-						    프로젝트 => Run Configuration => Tomcat 클릭
-						    => (x)Argument => VM arguments 입력란 =>
-						    -Djava.net.preferIPv4Stack=true  
-						     -->
-					</form>
-				</c:if>
+				
 			</div>
 			<!-- 실제 작업 영역 끝 -->
 

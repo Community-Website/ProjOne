@@ -61,6 +61,10 @@ public class NoticeDAO {
 	public Map<String, Object> selectReplyCount(Map<String, Object> map) {
 		return this.sqlSessionTemplate.selectOne("noticeBBS.selectReplyCount", map);
 	}
+	// 공지사항 코멘트 pos 수
+	public int getReplyMaxPos(Map<String, Object> map) {
+		return this.sqlSessionTemplate.selectOne("noticeBBS.selectReplyMaxPos", map);
+	}
 
 	// 공지사항 코멘트쓰기
 	public int insertReply(Map<String, Object> map) {
@@ -68,8 +72,8 @@ public class NoticeDAO {
 	}
 
 	// 공지사항 코멘트 보기
-	public List<Map<String, Object>> noticeReplyList(int ref) {
-		return this.sqlSessionTemplate.selectList("noticeBBS.selectReplyAll", ref);
+	public List<Map<String, Object>> noticeReplyList(int noticeNum) {
+		return this.sqlSessionTemplate.selectList("noticeBBS.selectReplyAll", noticeNum);
 	}
 
 	// 공지사항 대댓글쓰기
