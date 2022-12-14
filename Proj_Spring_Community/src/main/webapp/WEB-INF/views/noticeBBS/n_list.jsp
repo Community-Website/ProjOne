@@ -105,6 +105,9 @@
 								<img src='/resources/images/replyImg.png' alt='reply'>&nbsp;
 							</c:if>
 							${board.subject }
+							<c:if test="${!empty board.count}">
+								<span style="color: tomato;">[${ board.count }]</span>
+							</c:if>
 							<c:if test="${!empty board.fileName}">
 								&nbsp;<img src='/resources/images/file_Clip.png' alt='"+ ${fileName} +"'>
 							</c:if>
