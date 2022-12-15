@@ -336,12 +336,10 @@ public class NoticeController {
 	@RequestMapping(value = "/noticeBBS/n_reply2", method = RequestMethod.POST)
 	public ModelAndView reply2Post(@RequestParam Map<String, Object> map) throws IOException {
 		ModelAndView mav = new ModelAndView();
-		int num = Integer.parseInt((String) map.get("num"));
-		int noticeNum = num;
-		map.put("noticeNum", noticeNum);
+		int noticeNum = Integer.parseInt((String) map.get("noticeNum"));
 		System.out.println("코멘트의코멘트(대댓글) 달기 ref="+map.get("ref"));
-		//int pos=this.noticeService.getReplyMaxPos(map);
-		//map.put("pos", pos);
+		int pos=this.noticeService.getReplyMaxPos(map);
+		map.put("pos", pos);
 		
 		int replyUp = this.noticeService.replyUp(map);
 		int cnt = this.noticeService.insertReplyReply(map);
@@ -349,7 +347,7 @@ public class NoticeController {
 		String msg = "", url = "";
 		if (cnt > 0) {
 			msg = "댓글이 등록되었습니다!";
-			url = "/noticeBBS/n_detail?num="+ num;
+			url = "/noticeBBS/n_detail?num="+ noticeNum;
 		} else {
 			msg = "댓글 등록 실패!";
 			url = "javascript:history.back()";

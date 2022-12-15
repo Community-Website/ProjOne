@@ -16,7 +16,7 @@
 	<!-- 공지사항 게시글 수 -->
 	<select id="selectMaxNum" parameterType="hashMap" resultType="int">
 		<![CDATA[
-				select max(num) from noticeBoard
+				select COALESCE(max(num),0) from noticeBoard
 		]]>	
 	</select> 
 	
@@ -75,7 +75,7 @@
 	<!-- 공지사항 코멘트 수(MaxNum) -->
 	<select id="selectReplyMaxNum" parameterType="hashMap" resultType="int">
 		<![CDATA[
-				select max(num) from noticeReply
+				select COALESCE(max(num),0) from noticeReply
 		]]>	
 	</select> 
 	<!-- 공지사항 코멘트 수(count) -->
@@ -96,11 +96,12 @@
 	<!-- 공지사항 코멘트 목록 -->
 	<select id="selectReplyAll" parameterType="int" resultType="hashMap">
 		<![CDATA[
-			select * from noticeReply 
-			where noticeNum= #{noticeNum}
-			order by ref desc, pos asc
+		select *  from noticeReply 
+		where not (ref in (select ref from (select count(depth) as 'countDepth',ref from noticeReply group by ref) n where countDepth=1 ) and del ='Y')
+		and noticeNum=#{noticeNum} order by ref desc, pos asc
 		]]>
 	</select>
+	
 	<!-- 공지사항 대댓글 등록 -->
 	<insert id="insertReplyReply" parameterType="hashMap" useGeneratedKeys="true" keyProperty="int">
 		<![CDATA[
@@ -108,12 +109,15 @@
 			values (#{uId}, #{uName}, #{content}, #{pos}+1 , #{ref},#{noticeNum}, #{depth}+1 , now(), #{ip})
 		]]>
 	</insert>
+	
 	<!-- 공지사항 코멘트 수(MaxNum) -->
 	<select id="selectReplyMaxPos" parameterType="hashMap" resultType="int">
 		<![CDATA[
-				select max(pos) from noticeReply where ref=#{ref} and noticeNum=#{noticeNum}
+				select COALESCE(max(pos),(select pos from noticeReply where num=#{num})) 
+				from noticeReply where ref=#{ref} and noticeNum=#{noticeNum} and del='N' and depth=#{depth}+1
 		]]>	
 	</select> 
+	
 	<!-- 공지사항 대댓글 끼어들기 -->
 	<update id="replyUp" parameterType="hashMap">
 		<![CDATA[
@@ -122,10 +126,12 @@
 			where ref = #{ref} and pos > #{pos}
 		]]>
 	</update>
+	
 	<!-- 공지사항 댓글 삭제 -->
 	<delete id="deleteReply" parameterType="int">
 		<![CDATA[
-			delete from noticeReply 
+			update noticeReply 
+			set del='Y'
 			where num = #{num}
 		]]>
 	</delete>

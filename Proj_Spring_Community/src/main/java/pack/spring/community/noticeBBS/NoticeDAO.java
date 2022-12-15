@@ -88,7 +88,7 @@ public class NoticeDAO {
 
 	// 공지사항 삭제
 	public int deleteReply(int num) {
-		return this.sqlSessionTemplate.delete("noticeBBS.deleteReply", num);
+		return this.sqlSessionTemplate.update("noticeBBS.deleteReply", num);
 	}
 
 	// 공지사항 댓글 수정
