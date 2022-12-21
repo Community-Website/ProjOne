@@ -3,7 +3,6 @@ package pack.spring.community.admin;
 import java.util.List;
 import java.util.Map;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -151,6 +150,7 @@ public class AdminController {
 			@RequestParam String uPw, @RequestParam String uId) {
 		ModelAndView mav = new ModelAndView();
 		
+		// 관리자 비밀번호 가져오기
 		String adminPw = this.adminService.adminPw(uId);
 		
 		String msg = "", url = "";
@@ -171,6 +171,26 @@ public class AdminController {
 		
 		mav.addObject("msg", msg);
 		mav.addObject("url", url);
+		mav.setViewName("/common/message");
+		
+		return mav;
+	}
+	
+	// 관리자에의해 삭제된 글 표시하기
+	
+	public ModelAndView bbsDeletebyAdmin(@RequestParam int num) {
+		ModelAndView mav = new ModelAndView();
+		
+		int cnt = this.adminService.bbsDeletebyAdmin(num);
+		
+		String url = "/bbs/detail?num="+num, msg = "게시글 삭제 실패!";
+		if(cnt > 0) {
+			url = "/bbs/list";
+			msg = "게시글이 삭제되었습니다.";
+		}
+		
+		mav.addObject("url", url);
+		mav.addObject("msg", msg);
 		mav.setViewName("/common/message");
 		
 		return mav;

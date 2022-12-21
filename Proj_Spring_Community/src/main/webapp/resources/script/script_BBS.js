@@ -31,14 +31,14 @@ $(function(){
 	/* 글쓰기 페이지 게시글 등록 끝 /bbs/write.jsp */
 	
 	
-	/* 게시글 삭제버튼 시작 /bbs/read.jsp */
+	/* 게시글 삭제버튼 시작 /bbs/detail.jsp */
 	$("button#delBtn").click(function(){
-		
 		let chkTF = confirm("게시글을 삭제하시겠습니까?");
 		
 		if (chkTF) {
 			let nowPage = $("input#nowPage").val().trim();
 			let num = $("input#num").val().trim();
+			let ulevel = $("input#ulevel").val().trim();
 					
 			let p3 = $("#pKeyField").val().trim();  // p3 : keyField
 		    let p4 = $("#pKeyWord").val().trim();  // p4 : keyWord
@@ -47,13 +47,14 @@ $(function(){
 				url += "num="+num+"&nowPage="+nowPage;
 				url += "&keyField="+p3;
 				url += "&keyWord="+p4;
+				url += "&ulevel="+ulevel;
 			location.href=url;
 		} else {
 			alert("취소하셨습니다.");	
 		}
 		
 	});
-	/* 게시글 삭제버튼 끝 /bbs/read.jsp */
+	/* 게시글 삭제버튼 끝 /bbs/detail.jsp */
 	
 	
 	

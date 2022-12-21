@@ -27,4 +27,7 @@ public interface AdminService {
 	
 	// 관리자 비밀번호 가져오기
 	String adminPw(String uId);
+	
+	// 관리자에 의해 삭제된 글 표시하기
+	int bbsDeletebyAdmin(int num);
 }

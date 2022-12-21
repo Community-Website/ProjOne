@@ -71,12 +71,19 @@
 		]]>
 	</select> 
 	
+	<!-- 관리자 레벨 정보 가져오기 -->
+	<select id="adminLevel" parameterType="int" resultType="String">
+		<![CDATA[
+			select ulevel from admin where uId = #{uId}
+		]]>
+	</select> 
+	
 	<!-- 게시판 관리 -->
 	<!-- 게시글 삭제 -->
-	<update id="bbsDeletebyAdmin" parameterType="hashMap" >
+	<update id="bbsDeletebyAdmin" parameterType="int">
 		<![CDATA[
 			update tblBoard 
-			set subject = "관리자의 권한으로 삭제된 글 입니다."
+			set del = 1
 			where num = #{num}
 		]]>
 	</update>

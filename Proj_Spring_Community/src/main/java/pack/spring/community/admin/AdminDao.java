@@ -53,4 +53,8 @@ public class AdminDao {
 		return this.sqlSessionTemplate.selectOne("admin.adminPw", uId);
 	}
 	
+	// 관리자에 의해 삭제된 글 표시하기
+	public int bbsDeletebyAdmin(int num) {
+		return this.sqlSessionTemplate.update("admin.bbsDeletebyAdmin", num);
+	}
 }

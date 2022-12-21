@@ -178,8 +178,8 @@ select * from noticeReply;
 create table admin (
 num		int 		unique auto_increment,
 uId 		char(30) 				,
-#uPw 		char(30) 	not null			,
-#uName 		char(30) 	not null			,	
+uPw 		char(30) 	not null			,
+uName 		char(30) 	not null			,	
 ulevel		int 				,
 constraint 	primary key(uId)
 );

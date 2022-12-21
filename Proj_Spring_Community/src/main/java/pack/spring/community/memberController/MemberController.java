@@ -188,12 +188,12 @@ public class MemberController {
 		boolean loginRes;
 		String uId = "";
 		String res = "";
-		int level = 0;
+		int ulevel = 0;
 		if(adminService.adminCheck(map)>0) {
 			Map<String, Object> adminMap = adminService.adminDetail(map);
 			uId = (String) adminMap.get("uId");
 			res = "admin";
-			level = (int) adminMap.get("ulevel");
+			ulevel = (int) adminMap.get("ulevel");
 			loginRes = adminService.adminLogin(adminMap);
 		}else {
 			loginRes = memberService.loginMember(map);
@@ -201,14 +201,14 @@ public class MemberController {
 			res = "member";
 		}
 
-		System.out.println("로그인 loginRes="+loginRes+" uId="+uId);
+		System.out.println("로그인 loginRes="+loginRes+" uId="+uId+"ulevel="+ulevel);
 		
 		HttpSession session =request.getSession();
 		String msg = "아이디 또는 비밀번호를 확인해주세요.", url="/member/login";
 		if(loginRes) {
 			session.setAttribute("uId_Session", uId);
 			session.setAttribute("res", res);
-			session.setAttribute("level", level);
+			session.setAttribute("ulevel", ulevel);
 			msg="로그인되었습니다.";
 			url="/";
 		}

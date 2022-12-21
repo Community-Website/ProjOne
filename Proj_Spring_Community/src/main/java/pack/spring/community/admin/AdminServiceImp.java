@@ -57,9 +57,18 @@ public class AdminServiceImp implements AdminService {
 		return this.adminDao.memDelete(num);
 	}
 	
+	// 관리자 비밀번호 가져오기
 	@Override
 	public String adminPw(String uId) {
 		return this.adminDao.adminPw(uId);
 	}
+
+	// 관리자에 의해 삭제된 글 표시하기
+	@Override
+	public int bbsDeletebyAdmin(int num) {
+		return this.adminDao.bbsDeletebyAdmin(num);
+	}
+	
+	
 	
 }

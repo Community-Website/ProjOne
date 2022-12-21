@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import pack.spring.community.admin.AdminService;
 import pack.spring.community.common.PaginationInfo;
 import pack.spring.community.common.UtilMgr;
 import pack.spring.community.memberModel.MemberService;
@@ -38,6 +39,9 @@ public class BoardController {
 
 	@Autowired
 	MemberService memberService;
+	
+	@Autowired
+	AdminService adminService;
 
 	// 글쓰기 화면 보기
 	@RequestMapping(value = "/bbs/write", method = RequestMethod.GET)
@@ -291,22 +295,31 @@ public class BoardController {
 	
 	// 글 삭제 처리
 	@RequestMapping(value="/bbs/delete", method = RequestMethod.GET)
-	public ModelAndView delete(@RequestParam int num) {
+	public ModelAndView delete(@RequestParam int num, @RequestParam int ulevel) {
 		ModelAndView mav = new ModelAndView();
 		
-		int cnt = this.boardService.deleteBoard(num);
-		
 		String msg = "", url=""; 
-		if(cnt > 0) {
-			//mav.setViewName("redirect:/bbs/detail?num="+num);
-			msg = "삭제되었습니다!";
-			url = "/bbs/list";
+		if(ulevel==1) { //관리자가 글 삭제
+			int cnt = this.adminService.bbsDeletebyAdmin(num);
+			
+			if(cnt>0) {
+				msg = "관리자에 의해 게시글이 삭제되었습니다!";
+				url = "/bbs/list";
+			}
 		}else {
-			//mav.setViewName("redirect:/bbs/list");
-			msg = "삭제실패!";
-			url = "/bbs/detail?num="+num;
+			int cnt = this.boardService.deleteBoard(num);
+			
+			if(cnt > 0) {
+				//mav.setViewName("redirect:/bbs/detail?num="+num);
+				msg = "게시글이 삭제되었습니다!";
+				url = "/bbs/list";
+			}else {
+				//mav.setViewName("redirect:/bbs/list");
+				msg = "게시글 삭제 실패!";
+				url = "/bbs/detail?num="+num;
+			}			
 		}
-		
+				
 		mav.addObject("msg", msg);
 		mav.addObject("url", url);
 		mav.setViewName("/common/message");

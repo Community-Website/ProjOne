@@ -5,6 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:set var="uId_Session" value="${sessionScope.uId_Session }"/>
+<c:set var="ulevel" value="${sessionScope.ulevel }"/>
 
 <c:if test="${empty param.keyWord }">
 	<c:set var="keyWord" value=""/>
@@ -89,26 +90,35 @@
 						<c:set var="board" value="${list[curPos]}" />		
 						<c:set var="curPos" value="${curPos+1 }"/>
 						<c:set var="num" value="${num-1 }"/>		  		
-					<tr class="prnTr" onclick="detail('${board.num }', '${nowBlock}')">	
+					<tr class="prnTr" onclick="
+						<c:if test="${board.del!=1 }"></c:if>
+						<c:if test="${board.del==1 && ulevel>0}">detail('${board.num }', '${nowBlock}</c:if>')">	
 						<c:if test="${board.depth eq 0}">
 							<td>${board.num }</td>
 						</c:if>
 						<c:if test="${board.depth ne 0}">
 							<td></td>
 						</c:if>
-						<td class="subjectTd">
-							<c:if test="${board.depth>0}">
-								<c:set var="blank" value="0"/>
-								<c:forEach var="blank" begin="1" end="${board.depth}">
-									&nbsp;&nbsp;&nbsp;&nbsp;
-								</c:forEach>
-								<img src='/resources/images/replyImg.png' alt='reply'>&nbsp;
-							</c:if>
-							${board.subject }
-							<c:if test="${!empty board.fileName}">
-								&nbsp;<img src='/resources/images/file_Clip.png' alt='"+ ${fileName} +"'>
-							</c:if>
-						</td>
+						<c:if test="${board.del==1}">
+							<td class="subjectTd" style="color: red;" id="delSubject">
+									관리자에 의해 삭제된 글입니다.					
+							</td>	
+						</c:if>
+						<c:if test="${board.del!=1}">
+							<td class="subjectTd">
+								<c:if test="${board.depth>0}">
+									<c:set var="blank" value="0"/>
+									<c:forEach var="blank" begin="1" end="${board.depth}">
+										&nbsp;&nbsp;&nbsp;&nbsp;
+									</c:forEach>
+									<img src='/resources/images/replyImg.png' alt='reply'>&nbsp;
+								</c:if>
+								${board.subject }
+								<c:if test="${!empty board.fileName}">
+									&nbsp;<img src='/resources/images/file_Clip.png' alt='"+ ${fileName} +"'>
+								</c:if>
+							</td>					
+						</c:if>
 						<td>${board.uName }</td>
 						<td>
 							<fmt:parseDate  value="${board.regTM}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedRegTm" type="both" />
@@ -117,8 +127,7 @@
 						<td>${board.readCnt}</td>
 					</tr>	
 				  	</c:if>			
-				</c:forEach>
-				
+				</c:forEach>				
 			</c:if>	
 					<tr id="listBtnArea">
 						<td colspan="2">

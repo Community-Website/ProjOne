@@ -5,7 +5,7 @@
 <!--   errorPage="/err/errorProc.jsp" -->
 
 <c:set var="uId_Session" value="${sessionScope.uId_Session }"/>
-<c:set var="res" value="${sessionScope.res }"/>
+<c:set var="ulevel" value="${sessionScope.ulevel }"/>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -114,9 +114,13 @@
 								<button type="button" id="listBtn">${listBtnLabel}</button>
 								<button type="button" id="replyBtn">답 변</button>
 								<c:if test="${!empty uId_Session}">
-									<c:if test="${uId_Session==detail.uId || res != '0' }">
-										<button type="button" id="delBtn">삭 제</button>
-										<button type="button" id="modBtn">수 정</button>
+									<c:if test="${uId_Session==detail.uId || ulevel>0 }">
+										<c:if test="${uId_Session==detail.uId || ulevel<3 }">
+											<button type="button" id="modBtn">수 정</button>										
+										</c:if>
+										<c:if test="${uId_Session==detail.uId || ulevel<2 }">
+											<button type="button" id="delBtn">삭 제</button>										
+										</c:if>										
 									</c:if>
 								</c:if>
 							</td>
@@ -126,6 +130,7 @@
 				</table>
 				<input type="hidden" name="nowPage" value="${nowPage}" id="nowPage">
 				<input type="hidden" name="num" value="${detail.num}" id="num">
+				<input type="hidden" name="ulevel" value="${ulevel}" id="ulevel">
 				
 				<!-- 검색어전송 시작 -->
 				<input type="hidden" id="pKeyField" value="${keyField}">
