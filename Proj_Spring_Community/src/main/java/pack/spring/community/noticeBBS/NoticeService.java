@@ -34,11 +34,14 @@ public interface NoticeService {
 	// 공지사항 코멘트 수(count)
 	Map<String, Object> selectReplyCount(Map<String, Object> map);
 		
+	// 공지사항 코멘트 수(maxNum)
+	int getReplyMaxPos(Map<String, Object> map);
+	
 	// 공지사항 코멘트쓰기
 	int insertReply(Map<String, Object> map);
 	
 	// 공지사항 코멘트 보기
-	List<Map<String, Object>> noticeReplyList(int ref);
+	List<Map<String, Object>> noticeReplyList(int noticeNum);
 	
 	// 공지사항 대댓글쓰기
 	int insertReplyReply(Map<String, Object> map);

@@ -163,11 +163,13 @@ create table noticeReply (
     uId 			char(30) 			not null,				
     uName		char(30)			not null,
     content		text					null,    
-    pos			int					not null,
-    ref			int					not null,
-    depth		int					not null,
+    pos			int					not null, ## 대댓글 번호
+    ref			int					not null, ##댓글 번호
+    noticeNum  int					not null, ## 공지사항 글 번호
+    depth		int					not null, 
     regTM		datetime			not null,
     ip				char(15)			null, 
+    del char(10) not null default 'N',
     constraint		primary key(num)
 );
 select * from noticeReply;
